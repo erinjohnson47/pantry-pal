@@ -1,5 +1,5 @@
 # Pantry Pal
-Short introduction. Pantry pal is a webapp that allows users to keep a digital inventory of the food they have in their pantry/refrigerator/freezer, track how much is left of an open item, and add items to their shopping list as they get low/run out/expire so they know exactly what and how much they have/need of all their foods and drinks. 
+Pantry pal is a webapp that allows users to keep a digital inventory of the food they have in their pantry/refrigerator/freezer, track how much is left of an open item, and add items to their shopping list as they get low/run out/expire so they know exactly what and how much they have/need of all their foods and drinks. 
 ***
 ### User Stories
 1.  user should be able to register/create a profile and login
@@ -13,13 +13,13 @@ Short introduction. Pantry pal is a webapp that allows users to keep a digital i
 
 ### Wireframing
 #### What data are we working with?
-*User Data*
+##### User Data
 - profile photo (use firestore to store user images?) - string, optional
 - email (user firestore for oAuth?), required, string, unique
 - username - required, string, unique
 - password - required, string
 - (stretch goal-recipe builder) allergies, dietary restrictions? - string, array of objects
-*Pantry Data*
+##### Pantry Data
 - item: string, required
 - expiration date: Date
 - quantity: number, required
@@ -29,22 +29,23 @@ Short introduction. Pantry pal is a webapp that allows users to keep a digital i
 - add to shopping list: Boolean
 - archive to past pantry: Boolean
 - (stretch goal) upc code: string/number? 
-*Components and/or Routes and their data:*
+
+##### Components and/or Routes and their data:
 
 - Register (POST) - component to register a new user
 - Login (POST) - component to login an existing user
 - Profile (GET) - component to display user data, including profile photo and details about user
 - Logout (GET) - not a component, just a route in a container/app.js?
 
-###Technologies Used
-    - Javascript
-    - HMTL
-    - CSS
-    - React
-    - Mongoose
-    - Express
-    - MongoDB
-    - (stretch goal) Firestore oAuth with google/facebook and cloud storage for user images?
+### Technologies Used
+- Javascript
+- HMTL
+- CSS
+- React
+- Mongoose
+- Express
+- MongoDB
+- (stretch goal) Firestore oAuth with google/facebook and cloud storage for user images?
 
 
       
