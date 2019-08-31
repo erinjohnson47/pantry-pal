@@ -9,28 +9,26 @@ Pantry pal is a webapp that allows users to keep a digital inventory of the food
 5.  (stretch goal) user should be able to search a recipe database that uses items existing in their pantry/fridge
 6.  (strethc stretch goal) a user can add another user as a family member in their household, who would have access to the pantry and shopping list
 ***
-
-
 ## Wireframing
 #### What data are we working with?
-##### User Data
+#### User Data
 - profile photo (use firestore to store user images?) - string, optional
 - email (user firestore for oAuth?), required, string, unique
 - username - required, string, unique
 - password - required, string
 - (stretch goal-recipe builder) allergies, dietary restrictions? - string, array of objects
-##### Pantry Data
+#### Pantry Data
 - item: string, required
 - expiration date: Date
-- quantity: number, required
-- servings: number
-- open: boolen
-- opened on date (set as an onClick button that sets this date using new Date() ?): date
+- quantity: number, required (if == 0 => out of stock: true)
+- servings: number (if 0, decrease quantity by 1?)
+- item is open?: boolen (if true, display "opened on date")
+- opened on date (set as an onClick button that sets this date using new Date()?): date
 - out of stock? Boolean (move to shopping list, archive, or delete?)
-- add to shopping list: Boolean
-- archive to past pantry: Boolean
+- on shopping list: Boolean
+- archive to past pantry: Boolean (so user can remove from pantry/fridge without putting on shopping list, but keep item data in case they want to look at their old pantry items and re-add later)
 - (stretch goal) upc code: string/number? 
-##### Components and/or Routes and their data:
+#### Components and/or Routes and their data:
 - **Register** (POST) - component to register a new user
 - **Login** (POST) - component to login an existing user
 - **Profile** (GET) - component to display user data, including profile photo and details about user
