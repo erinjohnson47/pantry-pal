@@ -44,7 +44,7 @@ Pantry pal is a webapp that allows users to keep a digital inventory of the food
 ![navbar](public/images/navbar.JPG)
 #### Item Show Page
 ![item show page](public/images/itemshow.JPG)
-
+***
 ## Technologies Used
 - Javascript
 - HMTL
