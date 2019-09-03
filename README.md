@@ -1,6 +1,8 @@
 # Pantry Pal
 Pantry pal is a webapp that allows users to keep a digital inventory of the food they have in their pantry/refrigerator/freezer, track how much is left of an open item, and add items to their shopping list as they get low/run out/expire so they know exactly what and how much they have/need of all their foods and drinks. 
 ***
+## Get the Most From this App
+This is the frontend of pantry pal (a MERN stack webapp). You can view and acccess the backend API of pantry pal [here](https://github.com/erinjohnson47/pantry-pal-API)
 ## User Stories
 1.  user should be able to register/create a profile and login
 2.  user should be able to create a pantry and a fridge
