@@ -3,11 +3,10 @@ import 'semantic-ui-css/semantic.min.css'
 import { Button, Header, Icon, Modal, Form } from 'semantic-ui-react'
 
 
-class Register extends Component {
+class Login extends Component {
     state = {
         username: '',
         password: '',
-        email: '',
         modalOpen: false
     }
     handleOpen = () => {
@@ -20,7 +19,6 @@ class Register extends Component {
             modalOpen: false,
             username: '',
             password: '',
-            email: ''
         })
     }
     handleChange = (e) => {
@@ -30,7 +28,7 @@ class Register extends Component {
     }
     handleSubmit = async (e) => {
         e.preventDefault();
-        const registerUser = await fetch('http://localhost:9000/user/register', {
+        const loginUser = await fetch('http://localhost:9000/user/login', {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(this.state),
@@ -38,24 +36,24 @@ class Register extends Component {
                 'Content-Type': 'application/json'
             }
         })
-        const jsonRegister = await registerUser.json();
-        console.log(this.state, 'state in register user')
-        console.log(registerUser, 'registerUser')
-        console.log(jsonRegister, 'jsonRegister')
-        if(jsonRegister.status.message === "User is logged in") {
+        const jsonLogin = await loginUser.json();
+        console.log(this.state, 'state in login user')
+        console.log(loginUser, 'loginUser')
+        console.log(jsonLogin, 'jsonLogin')
+        if(jsonLogin.status.message === "User is logged in") {
             console.log('logged in')
             // this.props.history.push('/pantry')
             this.closeModal();
         }
     }
-    registerForm = () => {
+    loginForm = () => {
     return (
         <Modal
             open={this.state.modalOpen}
-            trigger={<Button onClick={this.handleOpen}>Register</Button>} closeIcon>
+            trigger={<Button onClick={this.handleOpen}>Login</Button>} closeIcon>
             <Header 
                 icon='user' 
-                content='Register' />
+                content='Login' />
         <Modal.Content>
             <Form>
                 <Form.Field>
@@ -87,21 +85,6 @@ class Register extends Component {
                     </div>
                 </div>
             </Form.Field>
-            <Form.Field>
-            <div className="ui form">
-                <div className="required field">
-                    <label>Email</label>
-                        <input 
-                            required
-                            placeholder='Email Address'
-                            type='email'
-                            name='email'
-                            onChange={this.handleChange}
-                            value={this.state.email}
-                        />
-                </div>
-            </div>
-            </Form.Field>
         </Form>
         </Modal.Content>
             <Modal.Actions>
@@ -110,7 +93,7 @@ class Register extends Component {
                     primary
                     onClick={this.handleSubmit}
                     >
-                    Register
+                    Login
                 </Button>
             </Modal.Actions>
         </Modal>
@@ -119,10 +102,10 @@ class Register extends Component {
     render() {
         return (
             <div>
-                {this.registerForm()}       
+                {this.loginForm()}
             </div>
         )
     }
 }
 
-export default Register;
+export default Login;
