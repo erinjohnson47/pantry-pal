@@ -156,19 +156,17 @@ class CreatePantryItem extends Component {
                     onChange={this.handleChange}
                     /> 
                     <label>Is this item open?</label>
-
-            {this.state.itemOpen != false ? 
-                <Form.Field>
-                    <label>Date Opened</label>
-                    <input placeholder='Date Item Was Opened'
-                    type='date'
-                    name='openedOn'
-                    onChange={this.handleChange}
-                    value={this.state.openedOn}
-                />
-                </Form.Field> 
-                : null} 
-                
+                    {this.state.itemOpen === true ? 
+                        <Form.Field>
+                        <label>Date Opened</label>
+                        <input placeholder='Date Item Was Opened'
+                            type='date'
+                            name='openedOn'
+                            onChange={this.handleChange}
+                            value={this.state.openedOn}
+                        />
+                        </Form.Field> 
+                    : null}  
             </Form.Group>
         </Form>
         </Modal.Content>
