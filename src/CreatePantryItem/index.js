@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css'
-import { Button, Header, Icon, Modal, Form, Dropdown } from 'semantic-ui-react'
+import { Button, Header, Modal, Form, Dropdown } from 'semantic-ui-react'
 
 const locationOptions = [
     { key: 'refrigerator', text: 'Refrigerator', value: 'refrigerator' },

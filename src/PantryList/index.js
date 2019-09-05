@@ -1,6 +1,6 @@
 import React from 'react';
 import 'semantic-ui-css/semantic.min.css'
-import { Button, Header, Icon, Modal, Form, Dropdown, Item } from 'semantic-ui-react'
+// import { Button, Header, Icon, Modal, Form, Dropdown, Item } from 'semantic-ui-react'
 
 const PantryList = (props) => {
     //filter props into separate arrays for item.location === fridge, item.location === freezer, item.location === pantry, then map those arrays
