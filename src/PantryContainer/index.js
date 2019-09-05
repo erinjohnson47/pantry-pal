@@ -37,7 +37,7 @@ class PantryContainer extends Component {
         return (
             <div>
                 <CreatePantryItem />
-                <PantryList pantryItems={this.state.pantryItems}/>
+                <PantryList allPantryItems={this.state.pantryItems}/>
             </div>
         )
     }

@@ -3,43 +3,66 @@ import 'semantic-ui-css/semantic.min.css'
 // import { Button, Header, Icon, Modal, Form, Dropdown, Item } from 'semantic-ui-react'
 
 const PantryList = (props) => {
-    //filter props into separate arrays for item.location === fridge, item.location === freezer, item.location === pantry, then map those arrays
+    //filters for items in Refrigerator only
+    const fridgeFilter = props.allPantryItems.filter(item => item.location === "Refrigerator") 
+    console.log(fridgeFilter, 'fridgeFilter')
+
+    //filters for items in Freezer only
+    const freezerFilter = props.allPantryItems.filter(item => item.location === "Freezer") 
+    console.log(freezerFilter, 'freezerFilter')
+
+    //filters for items in Pantry only
+    const pantryFilter = props.allPantryItems.filter(item => item.location === "Pantry")
+    console.log(pantryFilter, 'pantryFilter') 
+
     //also have an "all pantry" option that does not distinguish between location
-    const allPantry  = props.pantryItems.map((item) => {
+
+    //function to map through each array (fridge, freezer, pantry)
+    const pantryMap = element => {
         return (
-            <div key={item._id}>
-            <h3>{item.item}</h3>
+            <div key={element._id}>
+                <h3>{element.item}</h3>
                 <ul>
-                <li>{item.location}</li>
-                <li>Expires: {item.expDate}</li>
-                <li>Quantity: {item.quantity}</li>
-                {/* {
-                    item.quantity = 0 && item.outOfStock ?
-                    "This item is out of stock, would you like to add it to your Shopping List?"
-                    : "Quantity:"  
-                } */}
-                <li>Servings per container: {item.servings}</li>
-            <p>Notes:  
-            { item.itemOpen ? ' This item was opened on {add openedOn}' : ' Item is unopened. ' 
-            }
-            { item.outOfStock ? `You have run out of this item` : null}
-            { item.shoppingList ? `This item is on your shoppinglist. ` : `This item is currently not on your shopping list. `}</p>
+                    <li>Expires: {element.expDate}</li>
+                    {
+                        element.quantity = 0 && element.outOfStock ?
+                        <p>"This element is out of stock, would you like to add it to your Shopping List?"</p>
+                        : <p>Quantity: {element.quantity}</p> 
+                    }
+                    <li>Servings per container: {element.servings}</li>
+                <p>Notes:  
+                { element.itemOpen ? 
+                <p>This item was opened on {element.openedOn}</p>: 
+                <p>This item is unopened.</p>
+                }
+                { element.outOfStock ? `You have run out of this item` : null}
+                { element.shoppingList ? `This item is on your shoppinglist. ` : `This item is currently not on your shopping list. `}</p>
                 </ul>
             </div>
         )
-    })
-    // const fridgeList = allPantry.filter((item) => {item.location === 'refrigerator'})
+    }
+    //invoke pantryMap function passing each filtered array as argument
+    const fridgeItems = fridgeFilter.map(pantryMap);
+    console.log(fridgeItems, '<-fridgeItems')
+    
+    const freezerItems = freezerFilter.map(pantryMap);
+    console.log(fridgeItems, '<-freezerItems')
+    
+    const pantryItems = pantryFilter.map(pantryMap);
+    console.log(pantryItems, '<-pantryItems')
+    
     return(
         <div>
-            {allPantry}
             <h2>Refrigerator</h2>
-            {/* {fridgeList} */}
+            {fridgeItems}
+
             <h2>Freezer</h2>
+            {freezerItems}
 
             <h2>Pantry</h2>
-
+            {pantryItems}
         </div>
-    )
+        )
 }
 
 export default PantryList;
