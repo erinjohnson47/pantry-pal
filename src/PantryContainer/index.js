@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CreatePantryItem from '../CreatePantryItem'
+import PantryList from '../PantryList'
 
 class PantryContainer extends Component {
     state = {
@@ -32,10 +33,11 @@ class PantryContainer extends Component {
         }
     }
     render() {
+        console.log(this.state, 'this.state in render')
         return (
             <div>
                 <CreatePantryItem />
-
+                <PantryList pantryItems={this.state.pantryItems}/>
             </div>
         )
     }
