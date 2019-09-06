@@ -1,25 +1,61 @@
 import React from 'react';
 import 'semantic-ui-css/semantic.min.css'
-// import { Button, Header, Icon, Modal, Form, Dropdown, Item } from 'semantic-ui-react'
+import { Card, Button } from 'semantic-ui-react'
 
-const PantryList = (props) => {
+const PantryList = ({ filteredItems, activeItem }) => {
+    //function to set card color based on location
+    const cardColor = (location) => {
+        switch(location) {
+            case 'Refrigerator' :
+                return "teal";
+            case "Freezer" :
+                return "purple";
+            case "Pantry" :
+                return "yellow";
+            default:
+                return null;
+        }
+    }
     //function to map through each array (fridge, freezer, pantry)
     const pantryMap = element => {
         return (
             <div key={element._id}>
-                <h3>{element.item}</h3>
-                    <p>Expires: {element.expDate}</p>
+            <Card.Group itemsPerRow={3}>
+            <Card
+                color={cardColor(activeItem)}>
+                <Card.Content>
+                    <Card.Header>{element.item}</Card.Header>
+                </Card.Content>
+                <Card.Content>
+                    <p>Expires: {new Date(element.expDate).toLocaleDateString()}</p>
                     { element.quantity === 0 && !(element.shoppingList) ? 
                     <p>"This element is out of stock, would you like to add it to your Shopping List?"</p>: 
                     <p>Quantity: {element.quantity}</p> }
                     <p>Servings per container: {element.servings}</p>
                 <div>Notes:  
                 { element.itemOpen ? 
-                <p>This item was opened on {element.openedOn}</p>: 
+                <p>This item was opened on {new Date(element.openedOn).toLocaleDateString()}</p>: 
                 <p>This item is unopened.</p>
                 }
                 { element.outOfStock ? `You have run out of this item` : null}
                 { element.shoppingList ? `This item is on your shoppinglist. ` : `This item is currently not on your shopping list. `}</div>
+                </Card.Content>
+                <Card.Content extra>
+                    <div className='ui two buttons'>
+                    <Button 
+                        basic 
+                        color='green'>
+                        Edit
+                    </Button>
+                    <Button 
+                        basic 
+                        color='red'>
+                        Delete
+                    </Button>
+                    </div>
+                </Card.Content>
+            </Card>
+            </Card.Group>
             </div>
         )
     }
@@ -38,11 +74,11 @@ const PantryList = (props) => {
     }
 
     //invoke pantryMap function passing each filtered array as argument with sort function called
-    const itemList = props.filteredItems.sort(alphaSort).map(pantryMap);
+    const itemList = filteredItems.sort(alphaSort).map(pantryMap);
     
     return(
         <div>
-            <h2>{props.activeItem}</h2>
+            <h2>{activeItem}</h2>
             {itemList}
         </div>
         )

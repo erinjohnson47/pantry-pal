@@ -74,7 +74,6 @@ class PantryContainer extends Component {
         }
     }
     render() {
-        console.log(this.state, 'this.state in render')
         return (
             <div>
                 <NavBar handleItemClick={this.handleItemClick} activeItem={this.state.activeItem}/>

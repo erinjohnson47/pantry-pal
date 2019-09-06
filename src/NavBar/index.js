@@ -4,18 +4,12 @@ import Register from '../Register'
 import Login from '../Login'
 
 class NavBar extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeItem: ''
-        };
+    state = {
+        activeItem: ''
     }
 
-    // handleItemClick = (e) => this.setState({ activeItem: e.target.name })
-
     render() {
-        const { activeItem } = this.props;
-        console.log(activeItem, 'activeItem in render in NavBar')
+        const { activeItem, handleItemClick } = this.props;
 
         return (
             <Menu tabular attached='top'>
@@ -30,20 +24,26 @@ class NavBar extends Component {
                     </Dropdown.Menu>
                 </Dropdown>
                 <Menu.Item 
+                    active={activeItem === 'Home'}
+                    onClick={handleItemClick}
+                    >
+                    Home
+                </Menu.Item>
+                <Menu.Item 
                     active={activeItem === 'Pantry'}
-                    onClick={this.props.handleItemClick}
+                    onClick={handleItemClick}
                     >
                     Pantry
                 </Menu.Item>
                 <Menu.Item 
                     active={activeItem === 'Refrigerator'}
-                    onClick={this.props.handleItemClick}
+                    onClick={handleItemClick}
                     >
                     Refrigerator
                 </Menu.Item>
                 <Menu.Item 
                     active={activeItem === 'Freezer'}
-                    onClick={this.props.handleItemClick}
+                    onClick={handleItemClick}
                     >
                     Freezer
                 </Menu.Item>
