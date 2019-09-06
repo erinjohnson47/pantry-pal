@@ -4,25 +4,18 @@ import { Card, Button } from 'semantic-ui-react'
 
 const PantryList = ({ filteredItems, activeItem }) => {
     //function to set card color based on location
-    const cardColor = (location) => {
-        switch(location) {
-            case 'Refrigerator' :
-                return "teal";
-            case "Freezer" :
-                return "purple";
-            case "Pantry" :
-                return "yellow";
-            default:
-                return null;
+    const cardColor = {
+        Refrigerator: "teal",
+        Freezer: "purple",
+        Pantry: "yellow"
         }
-    }
     //function to map through each array (fridge, freezer, pantry)
     const pantryMap = element => {
         return (
             <div key={element._id}>
-            <Card.Group itemsPerRow={3}>
+            <Card.Group>
             <Card
-                color={cardColor(activeItem)}>
+                color={cardColor[activeItem]}>
                 <Card.Content>
                     <Card.Header>{element.item}</Card.Header>
                 </Card.Content>
@@ -63,14 +56,13 @@ const PantryList = ({ filteredItems, activeItem }) => {
     const alphaSort = (a,b) => {
         const itemA = a.item.toLowerCase();
         const itemB = b.item.toLowerCase();
-
-        let compare = 0;
         if (itemA > itemB) {
-            compare = 1;
+            return 1;
         } else if (itemA < itemB) {
-            compare = -1;
+            return -1;
+        } else {
+            return 0
         }
-        return compare;
     }
 
     //invoke pantryMap function passing each filtered array as argument with sort function called

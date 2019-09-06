@@ -1,25 +1,22 @@
 import React, { Component } from 'react'
-import { Menu, Dropdown } from 'semantic-ui-react'
-import Register from '../Register'
-import Login from '../Login'
+import { Menu, Dropdown, Link } from 'semantic-ui-react'
 
 class NavBar extends Component {
     state = {
         activeItem: ''
     }
 
-    render() {
+    menuForm = () => {
         const { activeItem, handleItemClick } = this.props;
-
         return (
             <Menu tabular attached='top'>
                 <Dropdown item icon='user' simple>
                     <Dropdown.Menu>
-                        <Dropdown.Item>
-                            <Register />
+                        <Dropdown.Item href='/user/Register'>
+                        Register
                         </Dropdown.Item> 
-                        <Dropdown.Item>
-                            <Login />
+                        <Dropdown.Item href="/user/Login">
+                        Login
                         </Dropdown.Item> 
                     </Dropdown.Menu>
                 </Dropdown>
@@ -61,6 +58,13 @@ class NavBar extends Component {
                     </div>
                 </Menu.Menu>
             </Menu>
+        )
+    }
+    render() {
+        return (
+            <div>
+                {this.menuForm}
+            </div>
         )
     }
 }

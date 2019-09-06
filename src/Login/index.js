@@ -7,8 +7,10 @@ class Login extends Component {
     state = {
         username: '',
         password: '',
-        modalOpen: false
+        modalOpen: false,
+        loggedUser: {}
     }
+    
     handleOpen = () => {
         this.setState({
             modalOpen: true
@@ -37,10 +39,11 @@ class Login extends Component {
             }
         })
         const jsonLogin = await loginUser.json();
-        console.log(this.state, 'state in login user')
+        const { setUser } = this.props
         console.log(loginUser, 'loginUser')
         console.log(jsonLogin, 'jsonLogin')
         if(jsonLogin.status.message === "User is logged in") {
+            {setUser(jsonLogin.data)}
             console.log('logged in')
             // this.props.history.push('/pantry')
             this.closeModal();

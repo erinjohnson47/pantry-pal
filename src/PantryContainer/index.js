@@ -3,6 +3,7 @@ import CreatePantryItem from '../CreatePantryItem'
 import PantryList from '../PantryList'
 import NavBar from '../NavBar'
 
+const baseUrl = "http://localhost:9000/"
 
 class PantryContainer extends Component {
     state = {
@@ -23,8 +24,7 @@ class PantryContainer extends Component {
     }
 
     filterItems = (activeItem) => {
-        //props is activeItem state from navbar
-        //use props to determine which item should be filtered to list
+        //use activeItem to determine which item should be filtered to list
         if (activeItem === 'Refrigerator') {
             //filters for items in Refrigerator only
             const fridgeFilter = [...this.state.allPantryItems].filter(item => item.location === "Refrigerator");
@@ -53,7 +53,7 @@ class PantryContainer extends Component {
 
     getPantryItems = async () => {
         try {
-            const responseGetPantryItems = await fetch('http://localhost:9000/pantry', {
+            const responseGetPantryItems = await fetch(`${baseUrl}pantry`, {
                 credentials: 'include',
                 method: 'GET'
             })

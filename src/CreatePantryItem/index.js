@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css'
 import { Button, Header, Modal, Form, Dropdown } from 'semantic-ui-react'
 
+const baseUrl = "http://localhost:9000/"
+
 const locationOptions = [
     { key: 'refrigerator', text: 'Refrigerator', value: 'refrigerator' },
     { key: 'freezer', text: 'Freezer', value: 'freezer' },
-    { key: 'pantry', text: 'Pantry', value: 'pantry' },
+    { key: 'pantry', text: 'Pantry', value: 'pantry' }
 ]
 
 class CreatePantryItem extends Component {
@@ -13,13 +15,10 @@ class CreatePantryItem extends Component {
         item: "",
         location: "",
         expDate: "",
-        quantity: "",
-        servings: "",
-        itemOpen: false,
+        itemQuantity: "",
+        servingsPerItem: "",
+        isItemOpen: false,
         openedOn: "",
-        outOfStock: false,
-        shoppingList: false,
-        image: "",
         modalOpen: false
     }
     handleOpen = () => {
@@ -33,20 +32,17 @@ class CreatePantryItem extends Component {
             item: "",
             location: "",
             expDate: "",
-            quantity: "",
-            servings: "",
-            itemOpen: false,
-            openedOn: "",
-            outOfStock: false,
-            shoppingList: false,
-            image: ""
+            itemQuantity: "",
+            servingsPerItem: "",
+            isItemOpen: false,
+            openedOn: ""
         })
     }
     handleChange = (e) => {
         if (e.currentTarget.children[0] !== undefined && e.currentTarget.children[0].name && !(e.currentTarget.children[0].innerText)) {
             const trueIsFalse = !(e.currentTarget.children[0].checked)
             this.setState({
-                itemOpen: trueIsFalse
+                isItemOpen: trueIsFalse
             })
         } else if (e.currentTarget.children[0] !== undefined && e.currentTarget.children[0].innerText) {
             this.setState({
@@ -60,7 +56,7 @@ class CreatePantryItem extends Component {
     }
     handleSubmit = async (e) => {
         e.preventDefault();
-        const addPantryItem = await fetch('http://localhost:9000/pantry/', {
+        const addPantryItem = await fetch(`${baseUrl}pantry/`, {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(this.state),
@@ -73,6 +69,7 @@ class CreatePantryItem extends Component {
         console.log(addPantryItem, 'addPantryItem')
         console.log(jsonAddPantry, 'jsonAddPantry')
         if(jsonAddPantry.status.message === "Resource successfully created") {
+            console.log(jsonAddPantry.data, 'jsonAddPantry.data')
             console.log('item added')
             // this.props.history.push('/pantry')
             this.closeModal();
@@ -82,11 +79,11 @@ class CreatePantryItem extends Component {
     return (
         <Modal
             open={this.state.modalOpen}
-            trigger={<Button onClick={this.handleOpen}>Add an Item to your Pantry</Button>} 
+            trigger={<Button onClick={this.handleOpen}>Add an Item to your Inventory</Button>} 
             closeIcon>
             <Header 
                 icon='food' 
-                content='Pantry Item' />
+                content='New Food Item' />
             <Modal.Content>
             <Form>
                 <Form.Field>
@@ -131,12 +128,13 @@ class CreatePantryItem extends Component {
             </Form.Field>
             <Form.Field>
                 <label>Quantity</label>
-                <input placeholder='Quantity'
+                <input
                 type='number'
+                min='0'
+                placeholder='Quantity'
                 name='quantity'
                 onChange={this.handleChange}
                 value={this.state.quantity}
-                min='0'
                 />
             </Form.Field>
             <Form.Field>
@@ -156,7 +154,7 @@ class CreatePantryItem extends Component {
                     onChange={this.handleChange}
                     /> 
                     <label>Is this item open?</label>
-                    {this.state.itemOpen === true ? 
+                    {this.state.isItemOpen === true ? 
                         <Form.Field>
                         <label>Date Opened</label>
                         <input placeholder='Date Item Was Opened'
