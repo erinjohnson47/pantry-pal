@@ -1,13 +1,54 @@
 import React, { Component } from 'react';
 import CreatePantryItem from '../CreatePantryItem'
 import PantryList from '../PantryList'
+import NavBar from '../NavBar'
+
 
 class PantryContainer extends Component {
     state = {
-        pantryItems: []
+        allPantryItems: [],
+        filteredItems: [],
+        activeItem: ''
     }
     componentDidMount = () => {
         this.getPantryItems();
+    }
+
+    handleItemClick = (e) => {
+        this.setState({ 
+            activeItem: e.target.innerText 
+        },()=>{
+            this.filterItems(this.state.activeItem)
+        })
+    }
+
+    filterItems = (activeItem) => {
+        //props is activeItem state from navbar
+        //use props to determine which item should be filtered to list
+        if (activeItem === 'Refrigerator') {
+            //filters for items in Refrigerator only
+            const fridgeFilter = [...this.state.allPantryItems].filter(item => item.location === "Refrigerator");
+            console.log(fridgeFilter)
+            this.setState({
+                filteredItems: fridgeFilter,
+                activeItem: "Refrigerator"
+            })
+
+        } else if (activeItem === 'Freezer') {
+            //filters for items in Freezer only
+            const freezerFilter = [...this.state.allPantryItems].filter(item => item.location === "Freezer") 
+            this.setState({
+                filteredItems: freezerFilter,
+                activeItem: "Freezer"
+            })
+        } else {
+            //filters for items in Pantry only
+            const pantryFilter = [...this.state.allPantryItems].filter(item => item.location === "Pantry")
+            this.setState({
+                filteredItems: pantryFilter,
+                activeItem: "Pantry"
+            })
+        }
     }
 
     getPantryItems = async () => {
@@ -25,7 +66,7 @@ class PantryContainer extends Component {
             console.log(jsonPantryItems, 'jsonPantryItems in getPantryItems')
             
             this.setState({
-                pantryItems: [...jsonPantryItems.data]
+                allPantryItems: [...jsonPantryItems.data]
             });
         } catch (err) {
             console.log(err, 'getPantryItems error')
@@ -36,8 +77,9 @@ class PantryContainer extends Component {
         console.log(this.state, 'this.state in render')
         return (
             <div>
+                <NavBar handleItemClick={this.handleItemClick} activeItem={this.state.activeItem}/>
                 <CreatePantryItem />
-                <PantryList allPantryItems={this.state.pantryItems}/>
+                <PantryList filteredItems={this.state.filteredItems} activeItem={this.state.activeItem}/>
             </div>
         )
     }
