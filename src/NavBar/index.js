@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
-import { Menu, Dropdown, Link } from 'semantic-ui-react'
+import { Menu, Dropdown } from 'semantic-ui-react'
+import { withRouter } from 'react-router';
+import PantryContainer from '../PantryContainer';
+
 
 class NavBar extends Component {
     state = {
         activeItem: ''
     }
-
-    menuForm = () => {
+    
+    render() {
         const { activeItem, handleItemClick } = this.props;
+        
         return (
             <Menu tabular attached='top'>
                 <Dropdown item icon='user' simple>
@@ -21,8 +25,8 @@ class NavBar extends Component {
                     </Dropdown.Menu>
                 </Dropdown>
                 <Menu.Item 
+                    href='/'
                     active={activeItem === 'Home'}
-                    onClick={handleItemClick}
                     >
                     Home
                 </Menu.Item>
@@ -60,13 +64,6 @@ class NavBar extends Component {
             </Menu>
         )
     }
-    render() {
-        return (
-            <div>
-                {this.menuForm}
-            </div>
-        )
-    }
 }
 
-export default NavBar;
+export default withRouter(NavBar);

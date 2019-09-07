@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import CreatePantryItem from '../CreatePantryItem'
 import PantryList from '../PantryList'
-import NavBar from '../NavBar'
 
 const baseUrl = "http://localhost:9000/"
 
@@ -9,19 +8,14 @@ class PantryContainer extends Component {
     state = {
         allPantryItems: [],
         filteredItems: [],
-        activeItem: ''
+        activeItem: '',
+        loggedUser: ''
     }
     componentDidMount = () => {
         this.getPantryItems();
     }
 
-    handleItemClick = (e) => {
-        this.setState({ 
-            activeItem: e.target.innerText 
-        },()=>{
-            this.filterItems(this.state.activeItem)
-        })
-    }
+
 
     filterItems = (activeItem) => {
         //use activeItem to determine which item should be filtered to list
@@ -74,10 +68,10 @@ class PantryContainer extends Component {
         }
     }
     render() {
+        console.log(this.state.loggedUser, 'this.state.logged user in pantry container')
         return (
             <div>
-                <NavBar handleItemClick={this.handleItemClick} activeItem={this.state.activeItem}/>
-                <CreatePantryItem />
+                <CreatePantryItem loggedUser={this.state.loggedUser}/>
                 <PantryList filteredItems={this.state.filteredItems} activeItem={this.state.activeItem}/>
             </div>
         )

@@ -8,7 +8,8 @@ class Register extends Component {
         username: '',
         password: '',
         email: '',
-        modalOpen: false
+        modalOpen: false,
+        loggedUser: ''
     }
     handleOpen = () => {
         this.setState({
@@ -39,10 +40,13 @@ class Register extends Component {
             }
         })
         const jsonRegister = await registerUser.json();
+        //props from app.js
+        const { setUser } = this.props
         console.log(this.state, 'state in register user')
         console.log(registerUser, 'registerUser')
         console.log(jsonRegister, 'jsonRegister')
         if(jsonRegister.status.message === "User is logged in") {
+            {setUser(jsonRegister.data)}
             console.log('logged in')
             // this.props.history.push('/pantry')
             this.closeModal();

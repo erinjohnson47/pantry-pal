@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css'
+import { withRouter } from 'react-router';
 import { Button, Header, Modal, Form, Dropdown } from 'semantic-ui-react'
 
 const baseUrl = "http://localhost:9000/"
@@ -19,7 +20,8 @@ class CreatePantryItem extends Component {
         servingsPerItem: "",
         isItemOpen: false,
         openedOn: "",
-        modalOpen: false
+        modalOpen: false,
+        loggedUser: ''
     }
     handleOpen = () => {
         this.setState({
@@ -33,9 +35,9 @@ class CreatePantryItem extends Component {
             location: "",
             expDate: "",
             itemQuantity: "",
-            servingsPerItem: "",
+            servings: "",
             isItemOpen: false,
-            openedOn: ""
+            openedOn: "", 
         })
     }
     handleChange = (e) => {
@@ -56,6 +58,7 @@ class CreatePantryItem extends Component {
     }
     handleSubmit = async (e) => {
         e.preventDefault();
+        const { loggedUser } = this.props;
         const addPantryItem = await fetch(`${baseUrl}pantry/`, {
             method: 'POST',
             credentials: 'include',
@@ -188,4 +191,4 @@ class CreatePantryItem extends Component {
     }
 }
 
-export default CreatePantryItem;
+export default withRouter(CreatePantryItem);

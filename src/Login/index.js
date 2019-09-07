@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css'
+import { withRouter } from 'react-router';
 import { Button, Header, Modal, Form } from 'semantic-ui-react'
 
 
@@ -39,6 +40,7 @@ class Login extends Component {
             }
         })
         const jsonLogin = await loginUser.json();
+        //props from app.js
         const { setUser } = this.props
         console.log(loginUser, 'loginUser')
         console.log(jsonLogin, 'jsonLogin')
@@ -111,4 +113,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);
