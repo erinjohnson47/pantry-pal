@@ -25,12 +25,23 @@ class App extends Component {
     activeItem: '',
     loggedUser: ''
   }
+
+  componentDidMount(){
+    const user = JSON.parse(localStorage.getItem("pantryUser"))
+    if (user){
+      
+      this.setState({
+        loggedUser: user
+      },()=>{
+        this.getPantryItems()
+      })
+    }
+  }
   //activeItem state lifted from NavBar
   handleItemClick = (e) => {
     this.setState({ 
         activeItem: e.target.innerText 
     },()=>{this.filterItems(this.state.activeItem)})
-    console.log(this.state.activeItem, "this is activeItem in app.js")
   }
   
 
@@ -39,7 +50,6 @@ class App extends Component {
     if (activeItem === 'Refrigerator') {
         //filters for items in Refrigerator only
         const fridgeFilter = [...this.state.allPantryItems].filter(item => item.location === "Refrigerator");
-        console.log(fridgeFilter, 'fridgeFilder in filteritems')
         this.setState({
             filteredItems: fridgeFilter,
             activeItem: "Refrigerator"
@@ -47,7 +57,6 @@ class App extends Component {
     } else if (activeItem === 'Freezer') {
         //filters for items in Freezer only
         const freezerFilter = [...this.state.allPantryItems].filter(item => item.location === "Freezer") 
-        console.log(freezerFilter, 'freezerFilter in filteritems')
         this.setState({
             filteredItems: freezerFilter,
             activeItem: "Freezer"
@@ -55,7 +64,6 @@ class App extends Component {
     } else {
         //filters for items in Pantry only
         const pantryFilter = [...this.state.allPantryItems].filter(item => item.location === "Pantry")
-        console.log(pantryFilter, 'pantryFilter in filteritems')
         this.setState({
             filteredItems: pantryFilter,
             activeItem: "Pantry"
@@ -73,22 +81,20 @@ getPantryItems = async () => {
             throw Error('404 from server')
         }
         const jsonPantryItems = await responseGetPantryItems.json();
-        console.log(jsonPantryItems, 'jsonPantryItems in getPantryItems App.js')
         this.setState({
             allPantryItems: [...jsonPantryItems.data]
         });
     } catch (err) {
-        console.log(err, 'getPantryItems error')
         return err
     }
 }
 
   //setUser state lifted from Login/Register
   setUser = (user) => {
+    localStorage.setItem("pantryUser", JSON.stringify(user))
     this.setState({
       loggedUser: user
     })
-    localStorage.setItem("pantryUser", this.state.loggedUser)
   }
   render() {
     return (

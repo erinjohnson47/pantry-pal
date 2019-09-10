@@ -13,7 +13,6 @@ class PantryContainer extends Component {
         loggedUser: ''
     }
     handleDeleteClick = async (id) => {
-        console.log(id, 'delete button onClick')
         try {
         const deletePantryItem = await fetch(`${baseUrl}/pantry/${id}`, {
             credentials: 'include',
@@ -23,7 +22,6 @@ class PantryContainer extends Component {
             throw Error('delete item failed')
         }
         const deletePantryItemJson = await deletePantryItem.json();
-        console.log(deletePantryItemJson, "<-deletePantryItemJson")
         this.props.history.push('/pantry');
         const {getPantryItems} = this.props 
         getPantryItems();
@@ -34,7 +32,7 @@ class PantryContainer extends Component {
         }
     }
     render() {
-        const { filteredItems, activeItem, allPantryItems } = this.props
+        const { filteredItems, activeItem } = this.props
         return (
             <div>
 

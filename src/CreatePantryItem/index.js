@@ -16,8 +16,8 @@ class CreatePantryItem extends Component {
         item: "",
         location: "",
         expDate: "",
-        itemQuantity: {value: 0},
-        servingsPerItem: 0,
+        itemQuantity: '',
+        servingsPerItem: '',
         isItemOpen: false,
         openedOn: "",
         modalOpen: false,
@@ -36,8 +36,8 @@ class CreatePantryItem extends Component {
             item: "",
             location: "",
             expDate: "",
-            itemQuantity: {value: 0},
-            servings: 0,
+            itemQuantity: '',
+            servings: '',
             isItemOpen: false,
             openedOn: "",
         })
@@ -69,13 +69,8 @@ class CreatePantryItem extends Component {
             }
         })
         const jsonAddPantry = await addPantryItem.json();
-        console.log(this.state, 'state in addPantryItem')
-        console.log(addPantryItem, 'addPantryItem')
-        console.log(jsonAddPantry, 'jsonAddPantry')
         if(jsonAddPantry.status.message === "Resource successfully created") {
             this.props.getPantryItems();
-            console.log(jsonAddPantry.data, 'jsonAddPantry.data')
-            console.log('item added')
             this.props.history.push('/pantry')
             this.closeModal();
         }

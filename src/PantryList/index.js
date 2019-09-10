@@ -24,6 +24,11 @@ const PantryList = ({ filteredItems, activeItem, handleDeleteClick, allPantryIte
                     <Card.Header>{element.item}</Card.Header>
                 </Card.Content>
                 <Card.Content>
+                    {
+                        activeItem ? 
+                        null : 
+                        <p>Location: {element.location}</p>
+                    }
                     <p>Expires: {new Date(element.expDate).toLocaleDateString()}</p>
                     { element.quantity === 0 && !(element.shoppingList) ? 
                     <p>"This element is out of stock, would you like to add it to your Shopping List?"</p>: 
