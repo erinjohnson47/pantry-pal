@@ -3,7 +3,7 @@ import 'semantic-ui-css/semantic.min.css'
 import { withRouter } from 'react-router';
 import { Button, Header, Modal, Form } from 'semantic-ui-react'
 
-const baseUrl = "process.env.REACT_APP_BACKEND_URL"
+const baseUrl = process.env.REACT_APP_BACKEND_URL
 
 class Register extends Component {
     state = {

@@ -8,7 +8,7 @@ import NavBar from './NavBar';
 import Register from './Register';
 import Login from './Login';
 
-const baseUrl = "process.env.REACT_APP_BACKEND_URL"
+const baseUrl = process.env.REACT_APP_BACKEND_URL
 
 const my404 = () => {
   return (
