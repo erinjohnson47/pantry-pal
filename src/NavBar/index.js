@@ -14,6 +14,7 @@ class NavBar extends Component {
         const { activeItem, handleItemClick, handleLogoutClick, loggedUser } = this.props;
         
         return (
+            <div class='navbar'>
             <Menu tabular attached='top'>
                 <Dropdown item icon='user' simple>
                     <Dropdown.Menu>
@@ -63,6 +64,7 @@ class NavBar extends Component {
                     </div>
                 </Menu.Menu>
             </Menu>
+        </div>
         )
     }
 }
