@@ -6,11 +6,12 @@ import PantryContainer from '../PantryContainer';
 
 class NavBar extends Component {
     state = {
-        activeItem: ''
+        activeItem: '',
+        loggedUser: ''
     }
     
     render() {
-        const { activeItem, handleItemClick } = this.props;
+        const { activeItem, handleItemClick, handleLogoutClick, loggedUser } = this.props;
         
         return (
             <Menu tabular attached='top'>

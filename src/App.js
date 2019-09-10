@@ -27,9 +27,10 @@ class App extends Component {
   }
 
   componentDidMount(){
+    //adds user to local storage
     const user = JSON.parse(localStorage.getItem("pantryUser"))
+    //if the page is refreshed while user is logged in re-save current user to state and then getPantryItems for that user again
     if (user){
-      
       this.setState({
         loggedUser: user
       },()=>{
@@ -42,8 +43,21 @@ class App extends Component {
     this.setState({ 
         activeItem: e.target.innerText 
     },()=>{this.filterItems(this.state.activeItem)})
+    this.props.history.push('/pantry')
   }
   
+  //logout route
+  //clear local storage, clear session, clear state
+  handleLogoutClick = (e) => {
+    localStorage.clear();
+    this.setState({
+      allPantryItems: [],
+      filteredItems: [],
+      activeItem: '',
+      loggedUser: ''
+    })
+    this.props.history.push('/pantry');
+  }
 
   filterItems = (activeItem) => {
     //use activeItem to determine which item should be filtered to list
@@ -99,7 +113,7 @@ getPantryItems = async () => {
   render() {
     return (
       <div className="App">
-      <NavBar handleItemClick={this.handleItemClick} activeItem={this.state.activeItem}/>
+      <NavBar handleLogoutClick={this.handleLogoutClick} handleItemClick={this.handleItemClick} activeItem={this.state.activeItem}/>
       <Switch>
         <Route exact path='/' component={Home}/>
         <Route exact path='/pantry' component={() => 
