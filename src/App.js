@@ -8,7 +8,7 @@ import NavBar from './NavBar';
 import Register from './Register';
 import Login from './Login';
 
-const baseUrl = "http://localhost:9000/"
+const baseUrl = "process.env.REACT_APP_BACKEND_URL"
 
 const my404 = () => {
   return (
@@ -86,7 +86,7 @@ class App extends Component {
 }
 getPantryItems = async () => {
     try {
-        const responseGetPantryItems = await fetch(`${baseUrl}pantry`, {
+        const responseGetPantryItems = await fetch(`${baseUrl}/pantry`, {
             credentials: 'include',
             method: 'GET'
         })

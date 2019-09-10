@@ -3,7 +3,7 @@ import CreatePantryItem from '../CreatePantryItem'
 import PantryList from '../PantryList'
 import { withRouter } from 'react-router';
 
-const baseUrl = "http://localhost:9000"
+const baseUrl = "process.env.REACT_APP_BACKEND_URL"
 
 class PantryContainer extends Component {
     state = {

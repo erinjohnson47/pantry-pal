@@ -3,7 +3,7 @@ import 'semantic-ui-css/semantic.min.css'
 import { withRouter } from 'react-router';
 import { Button, Header, Modal, Form, Dropdown } from 'semantic-ui-react'
 
-const baseUrl = "http://localhost:9000/"
+const baseUrl = "process.env.REACT_APP_BACKEND_URL"
 
 const locationOptions = [
     { key: 'refrigerator', text: 'Refrigerator', value: 'refrigerator' },
@@ -60,7 +60,7 @@ class CreatePantryItem extends Component {
     }
     handleSubmit = async (e) => {
         e.preventDefault();
-        const addPantryItem = await fetch(`${baseUrl}pantry/`, {
+        const addPantryItem = await fetch(`${baseUrl}/pantry/`, {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(this.state),

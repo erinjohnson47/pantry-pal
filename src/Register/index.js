@@ -3,7 +3,7 @@ import 'semantic-ui-css/semantic.min.css'
 import { withRouter } from 'react-router';
 import { Button, Header, Modal, Form } from 'semantic-ui-react'
 
-const baseUrl = "http://localhost:9000/"
+const baseUrl = "process.env.REACT_APP_BACKEND_URL"
 
 class Register extends Component {
     state = {
@@ -33,7 +33,7 @@ class Register extends Component {
     }
     handleSubmit = async (e) => {
         e.preventDefault();
-        const registerUser = await fetch(`${baseUrl}user/register`, {
+        const registerUser = await fetch(`${baseUrl}/user/register`, {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(this.state),
