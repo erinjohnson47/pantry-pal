@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css'
+import { withRouter } from 'react-router';
 import { Button, Header, Modal, Form } from 'semantic-ui-react'
 
+const baseUrl = "http://localhost:9000/"
 
 class Register extends Component {
     state = {
@@ -31,7 +33,7 @@ class Register extends Component {
     }
     handleSubmit = async (e) => {
         e.preventDefault();
-        const registerUser = await fetch('http://localhost:9000/user/register', {
+        const registerUser = await fetch(`${baseUrl}user/register`, {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(this.state),
@@ -48,7 +50,7 @@ class Register extends Component {
         if(jsonRegister.status.message === "User is logged in") {
             {setUser(jsonRegister.data)}
             console.log('logged in')
-            // this.props.history.push('/pantry')
+            this.props.history.push('/pantry')
             this.closeModal();
         }
     }
@@ -129,4 +131,4 @@ class Register extends Component {
     }
 }
 
-export default Register;
+export default withRouter(Register);

@@ -2,7 +2,11 @@ import React from 'react';
 import 'semantic-ui-css/semantic.min.css'
 import { Card, Button } from 'semantic-ui-react'
 
-const PantryList = ({ filteredItems, activeItem }) => {
+const PantryList = ({ filteredItems, activeItem, handleDeleteClick, allPantryItems }) => {
+    console.log(filteredItems, 'filteredItems destructured from PantryList')
+    console.log(activeItem, 'filteredItems destructured from PantryList')
+    console.log(handleDeleteClick, 'handleDeleteClick destructured from PantryList')
+    console.log(allPantryItems, 'allPantryItems destructured from PantryList')
     //function to set card color based on location
     const cardColor = {
         Refrigerator: "teal",
@@ -42,7 +46,8 @@ const PantryList = ({ filteredItems, activeItem }) => {
                     </Button>
                     <Button 
                         basic 
-                        color='red'>
+                        color='red'
+                        onClick={handleDeleteClick.bind(null, element._id)}>
                         Delete
                     </Button>
                     </div>
@@ -66,12 +71,29 @@ const PantryList = ({ filteredItems, activeItem }) => {
     }
 
     //invoke pantryMap function passing each filtered array as argument with sort function called
+    
     const itemList = filteredItems.sort(alphaSort).map(pantryMap);
+    console.log(itemList, 'itemList in PantryList')
+    const allItemList = allPantryItems.sort(alphaSort).map(pantryMap);
+    console.log(allItemList, 'allItemList in PantryList')
+    console.log(filteredItems, 'filteredItems destructured from PantryList')
+    console.log(activeItem, 'filteredItems destructured from PantryList')
+    console.log(handleDeleteClick, 'handleDeleteClick destructured from PantryList')
+    console.log(allPantryItems, 'allPantryItems destructured from PantryList')
     
     return(
+        
         <div>
+        {
+            activeItem ?
+            <div> 
             <h2>{activeItem}</h2>
             {itemList}
+            </div> :
+            <div><h2>All Pantry Items</h2>
+            {allItemList}
+            </div>
+        }
         </div>
         )
 }

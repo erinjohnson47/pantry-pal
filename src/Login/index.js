@@ -3,13 +3,14 @@ import 'semantic-ui-css/semantic.min.css'
 import { withRouter } from 'react-router';
 import { Button, Header, Modal, Form } from 'semantic-ui-react'
 
+const baseUrl = "http://localhost:9000/"
 
 class Login extends Component {
     state = {
         username: '',
         password: '',
         modalOpen: false,
-        loggedUser: {}
+        loggedUser: ''
     }
     
     handleOpen = () => {
@@ -31,7 +32,7 @@ class Login extends Component {
     }
     handleSubmit = async (e) => {
         e.preventDefault();
-        const loginUser = await fetch('http://localhost:9000/user/login', {
+        const loginUser = await fetch(`${baseUrl}user/login`, {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(this.state),
@@ -41,14 +42,15 @@ class Login extends Component {
         })
         const jsonLogin = await loginUser.json();
         //props from app.js
-        const { setUser } = this.props
+        const { setUser, getPantryItems } = this.props
         console.log(loginUser, 'loginUser')
         console.log(jsonLogin, 'jsonLogin')
         if(jsonLogin.status.message === "User is logged in") {
             {setUser(jsonLogin.data)}
             console.log('logged in')
-            // this.props.history.push('/pantry')
+            this.props.history.push('/pantry')
             this.closeModal();
+            getPantryItems();
         }
     }
     loginForm = () => {

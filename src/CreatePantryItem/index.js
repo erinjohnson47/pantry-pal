@@ -16,15 +16,17 @@ class CreatePantryItem extends Component {
         item: "",
         location: "",
         expDate: "",
-        itemQuantity: "",
-        servingsPerItem: "",
+        itemQuantity: {value: 0},
+        servingsPerItem: 0,
         isItemOpen: false,
         openedOn: "",
         modalOpen: false,
         loggedUser: ''
     }
     handleOpen = () => {
+        const { loggedUser } = this.props;
         this.setState({
+            loggedUser: loggedUser,
             modalOpen: true
         })
     }
@@ -34,10 +36,10 @@ class CreatePantryItem extends Component {
             item: "",
             location: "",
             expDate: "",
-            itemQuantity: "",
-            servings: "",
+            itemQuantity: {value: 0},
+            servings: 0,
             isItemOpen: false,
-            openedOn: "", 
+            openedOn: "",
         })
     }
     handleChange = (e) => {
@@ -58,7 +60,6 @@ class CreatePantryItem extends Component {
     }
     handleSubmit = async (e) => {
         e.preventDefault();
-        const { loggedUser } = this.props;
         const addPantryItem = await fetch(`${baseUrl}pantry/`, {
             method: 'POST',
             credentials: 'include',
@@ -72,9 +73,10 @@ class CreatePantryItem extends Component {
         console.log(addPantryItem, 'addPantryItem')
         console.log(jsonAddPantry, 'jsonAddPantry')
         if(jsonAddPantry.status.message === "Resource successfully created") {
+            this.props.getPantryItems();
             console.log(jsonAddPantry.data, 'jsonAddPantry.data')
             console.log('item added')
-            // this.props.history.push('/pantry')
+            this.props.history.push('/pantry')
             this.closeModal();
         }
     }
@@ -137,7 +139,7 @@ class CreatePantryItem extends Component {
                 placeholder='Quantity'
                 name='quantity'
                 onChange={this.handleChange}
-                value={this.state.quantity}
+                value={this.state.quantity || ''}
                 />
             </Form.Field>
             <Form.Field>
@@ -146,7 +148,7 @@ class CreatePantryItem extends Component {
                 type='number'
                 name='servings'
                 onChange={this.handleChange}
-                value={this.state.servings}
+                value={this.state.servings || ''}
                 min='0'
                 />
             </Form.Field>
