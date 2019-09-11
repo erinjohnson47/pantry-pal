@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Menu, Dropdown } from 'semantic-ui-react'
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import PantryContainer from '../PantryContainer';
 
 
@@ -15,24 +16,22 @@ class NavBar extends Component {
         
         console.log(this.state)
         return (
-            <div className='navbar'>
-            <Menu tabular attached='top'>
+            <div >
+            <Menu tabular attached='top' id='pantryNavbar'>
                 <Dropdown item icon='user' simple>
                     <Dropdown.Menu> 
                     {!loggedUser ? 
                         <div>
-                            <Dropdown.Item 
-                                href='/user/register'>
-                            Register
+                            <Dropdown.Item>
+                                <Link to='/user/register'>Register</Link>
                             </Dropdown.Item> 
-                            <Dropdown.Item 
-                                href="/user/login">
-                            Login
+                            <Dropdown.Item> 
+                                <Link to="/user/login">Login</Link>
                             </Dropdown.Item>
                         </div> :
                         <div>
                             <Dropdown.Item 
-                                href='/user/logout'
+                                href='#'
                                 onClick={handleLogoutClick}>
                                 Logout
                             </Dropdown.Item>
@@ -41,10 +40,8 @@ class NavBar extends Component {
                     </Dropdown.Menu>
                 </Dropdown>
                 <Menu.Item 
-                    href='/'
-                    active={activeItem === 'Home'}
-                    >
-                    Home
+                    active={activeItem === 'Home'}>
+                    <Link to="/">Home</Link>
                 </Menu.Item>
                 <Menu.Item 
                     active={activeItem === 'Pantry'}

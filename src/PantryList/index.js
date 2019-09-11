@@ -13,7 +13,7 @@ const PantryList = ({ filteredItems, activeItem, handleDeleteClick, allPantryIte
     //function to map through each array (fridge, freezer, pantry)
     const pantryMap = element => {
         return (
-            <div key={element._id}>
+            <div id='pantryCard' key={element._id}>
             <Card.Group>
             <Card
                 color={cardColor[activeItem]}>

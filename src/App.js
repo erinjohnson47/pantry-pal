@@ -57,7 +57,7 @@ class App extends Component {
       activeItem: '',
       loggedUser: ''
     })
-    this.props.history.push('/pantry');
+    this.props.history.push('/');
   }
 
   filterItems = (activeItem) => {
