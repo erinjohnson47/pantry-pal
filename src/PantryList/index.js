@@ -37,7 +37,7 @@ const PantryList = ({ filteredItems, activeItem, handleDeleteClick, allPantryIte
                 <p>This item is unopened.</p>
                 }
                 { element.outOfStock ? `You have run out of this item` : null}
-                { element.shoppingList ? `This item is on your shoppinglist. ` : `This item is currently not on your shopping list. `}</div>
+                </div>
                 </Card.Content>
                 <Card.Content extra>
                     <div className='ui two buttons'>
