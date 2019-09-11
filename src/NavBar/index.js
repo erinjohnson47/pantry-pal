@@ -14,7 +14,7 @@ class NavBar extends Component {
         const { activeItem, handleItemClick, handleLogoutClick, loggedUser } = this.props;
         
         return (
-            <div className='navbar'>
+            <div class='navbar'>
             <Menu tabular attached='top'>
                 <Dropdown item icon='user' simple>
                     <Dropdown.Menu>
