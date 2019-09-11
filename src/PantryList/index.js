@@ -3,10 +3,7 @@ import 'semantic-ui-css/semantic.min.css'
 import { Card, Button } from 'semantic-ui-react'
 
 const PantryList = ({ filteredItems, activeItem, handleDeleteClick, allPantryItems }) => {
-    console.log(filteredItems, 'filteredItems destructured from PantryList')
-    console.log(activeItem, 'filteredItems destructured from PantryList')
-    console.log(handleDeleteClick, 'handleDeleteClick destructured from PantryList')
-    console.log(allPantryItems, 'allPantryItems destructured from PantryList')
+
     //function to set card color based on location
     const cardColor = {
         Refrigerator: "teal",
@@ -78,13 +75,7 @@ const PantryList = ({ filteredItems, activeItem, handleDeleteClick, allPantryIte
     //invoke pantryMap function passing each filtered array as argument with sort function called
     
     const itemList = filteredItems.sort(alphaSort).map(pantryMap);
-    console.log(itemList, 'itemList in PantryList')
     const allItemList = allPantryItems.sort(alphaSort).map(pantryMap);
-    console.log(allItemList, 'allItemList in PantryList')
-    console.log(filteredItems, 'filteredItems destructured from PantryList')
-    console.log(activeItem, 'filteredItems destructured from PantryList')
-    console.log(handleDeleteClick, 'handleDeleteClick destructured from PantryList')
-    console.log(allPantryItems, 'allPantryItems destructured from PantryList')
     
     return(
         

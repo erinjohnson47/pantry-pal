@@ -13,17 +13,31 @@ class NavBar extends Component {
     render() {
         const { activeItem, handleItemClick, handleLogoutClick, loggedUser } = this.props;
         
+        console.log(this.state)
         return (
-            <div class='navbar'>
+            <div className='navbar'>
             <Menu tabular attached='top'>
                 <Dropdown item icon='user' simple>
-                    <Dropdown.Menu>
-                        <Dropdown.Item href='/user/Register'>
-                        Register
-                        </Dropdown.Item> 
-                        <Dropdown.Item href="/user/Login">
-                        Login
-                        </Dropdown.Item> 
+                    <Dropdown.Menu> 
+                    {!loggedUser ? 
+                        <div>
+                            <Dropdown.Item 
+                                href='/user/register'>
+                            Register
+                            </Dropdown.Item> 
+                            <Dropdown.Item 
+                                href="/user/login">
+                            Login
+                            </Dropdown.Item>
+                        </div> :
+                        <div>
+                            <Dropdown.Item 
+                                href='/user/logout'
+                                onClick={handleLogoutClick}>
+                                Logout
+                            </Dropdown.Item>
+                        </div>
+                    }
                     </Dropdown.Menu>
                 </Dropdown>
                 <Menu.Item 
@@ -50,7 +64,7 @@ class NavBar extends Component {
                     >
                     Freezer
                 </Menu.Item>
-                <Menu.Menu position='right'>
+                {/* <Menu.Menu position='right'>
                     <div className='ui right aligned category search item'>
                         <div className='ui transparent icon input'>
                             <input
@@ -62,7 +76,7 @@ class NavBar extends Component {
                         </div>
                     <div className='results' />
                     </div>
-                </Menu.Menu>
+                </Menu.Menu> */}
             </Menu>
         </div>
         )

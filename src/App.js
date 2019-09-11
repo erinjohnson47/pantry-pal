@@ -29,6 +29,7 @@ class App extends Component {
   componentDidMount(){
     //adds user to local storage
     const user = JSON.parse(localStorage.getItem("pantryUser"))
+    console.log(user, "user - pantryUser")
     //if the page is refreshed while user is logged in re-save current user to state and then getPantryItems for that user again
     if (user){
       this.setState({
@@ -113,7 +114,12 @@ getPantryItems = async () => {
   render() {
     return (
       <div className="App">
-      <NavBar handleLogoutClick={this.handleLogoutClick} handleItemClick={this.handleItemClick} activeItem={this.state.activeItem}/>
+      <NavBar 
+        handleLogoutClick={this.handleLogoutClick} 
+        handleItemClick={this.handleItemClick} 
+        activeItem={this.state.activeItem}
+        loggedUser={this.state.loggedUser}
+        />
       <Switch>
         <Route exact path='/' component={Home}/>
         <Route exact path='/pantry' component={() => 
