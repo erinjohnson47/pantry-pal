@@ -12,6 +12,15 @@ body {
   background-size: cover;
 }
 
+#homePage {
+  background-color: lightslategrey;
+  /* padding: 0 40px; */
+  /* margin: 0 250px; */
+}
+#homePage p {
+  background-color: grey;
+
+}
 
 
 code {
