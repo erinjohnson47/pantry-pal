@@ -33,7 +33,7 @@ class Register extends Component {
     }
     handleSubmit = async (e) => {
         e.preventDefault();
-        const registerUser = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/register`, {
+        const registerUser = await fetch(`${process.env.REACT_APP_BACKEND_URL}user/register`, {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(this.state),
@@ -41,6 +41,7 @@ class Register extends Component {
                 'Content-Type': 'application/json'
             }
         })
+        console.log(process.env.REACT_APP_BACKEND_URL, 'register route in register component')
         const jsonRegister = await registerUser.json();
         //props from app.js
         const { setUser } = this.props
