@@ -8,7 +8,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   flex-direction: row;
   flex-wrap: wrap;
-  background: url('/images/pantry_pic.jpg') no-repeat center fixed !important; 
+  /* background: url('/images/pantry_pic.jpg') no-repeat center fixed !important;  */
   background-size: cover;
 }
 

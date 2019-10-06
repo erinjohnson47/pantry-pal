@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PantryList from '../PantryList'
 import { withRouter } from 'react-router';
 import EditPantryItem from '../EditPantryItem'
+import CreatePantryItem from '../CreatePantryItem'
 
 const baseUrl = process.env.REACT_APP_BACKEND_URL
 
@@ -16,8 +17,9 @@ class PantryContainer extends Component {
     handleEditClick = async (id) => {
         this.setState({
             itemToEdit: id
+        },() => {
+            console.log(this.state.itemToEdit, 'itemToEdit in state')
         })
-        console.log(this.state.itemToEdit, 'itemToEdit in state')
     }
     handleDeleteClick = async (id) => {
         try {
@@ -43,12 +45,9 @@ class PantryContainer extends Component {
         const { filteredItems, activeItem } = this.props
         return (
             <div>
-            {/* {loggedUser ? 
                 <CreatePantryItem 
                     getPantryItems={this.props.getPantryItems}
-                    loggedUser={this.state.loggedUser}/> :
-                null 
-            } */}
+                    loggedUser={this.state.loggedUser}/>  
                 <PantryList 
                     allPantryItems={this.props.allPantryItems}
                     filteredItems={filteredItems}

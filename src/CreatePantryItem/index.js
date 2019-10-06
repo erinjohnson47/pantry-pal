@@ -78,9 +78,13 @@ class CreatePantryItem extends Component {
     addPantryItem = () => {
     return (
         <Modal
+            closeIcon
+            closeOnDimmerClick
+            closeOnEscape
+            onClose={this.closeModal}
             open={this.state.modalOpen}
             trigger={<Button onClick={this.handleOpen}>Add an Item to your Inventory</Button>} 
-            closeIcon>
+            >
             <Header 
                 icon='food' 
                 content='New Food Item' />
