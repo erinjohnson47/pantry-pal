@@ -10,7 +10,14 @@ class PantryContainer extends Component {
         allPantryItems: [],
         filteredItems: [],
         activeItem: '',
-        loggedUser: ''
+        loggedUser: '',
+        itemToEdit: ''
+    }
+    handleEditClick = async (id) => {
+        this.setState({
+            itemToEdit: id
+        })
+        console.log(this.state.itemToEdit, 'itemToEdit in state')
     }
     handleDeleteClick = async (id) => {
         try {
@@ -46,8 +53,11 @@ class PantryContainer extends Component {
                     allPantryItems={this.props.allPantryItems}
                     filteredItems={filteredItems}
                     activeItem={activeItem}
-                    handleDeleteClick={this.handleDeleteClick}/>
-                <EditPantryItem />
+                    handleDeleteClick={this.handleDeleteClick}
+                    handleEditClick={this.handleEditClick}
+                    />
+                <EditPantryItem 
+                     />
             </div>
         )
     }

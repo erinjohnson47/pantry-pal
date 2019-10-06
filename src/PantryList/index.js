@@ -2,7 +2,7 @@ import React from 'react';
 import 'semantic-ui-css/semantic.min.css'
 import { Card, Button } from 'semantic-ui-react'
 
-const PantryList = ({ filteredItems, activeItem, handleDeleteClick, allPantryItems }) => {
+const PantryList = ({ filteredItems, activeItem, handleDeleteClick, allPantryItems, handleEditClick }) => {
 
     //function to set card color based on location
     const cardColor = {
@@ -43,7 +43,8 @@ const PantryList = ({ filteredItems, activeItem, handleDeleteClick, allPantryIte
                     <div className='ui two buttons'>
                     <Button 
                         basic 
-                        color='green'>
+                        color='green'
+                        onClick={handleEditClick.bind(null, element._id)}>
                         Edit
                     </Button>
                     <Button 
