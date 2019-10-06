@@ -41,12 +41,11 @@ class Register extends Component {
                 'Content-Type': 'application/json'
             }
         })
-        console.log(process.env.REACT_APP_BACKEND_URL, 'register route in register component')
         const jsonRegister = await registerUser.json();
         //props from app.js
         const { setUser } = this.props
         if(jsonRegister.status.message === "User is logged in") {
-            {setUser(jsonRegister.data)}
+            setUser(jsonRegister.data)
             console.log('logged in')
             this.props.history.push('/pantry')
             this.closeModal();

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import PantryContainer from './PantryContainer';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import Home from './Home';
 import NavBar from './NavBar';
@@ -29,7 +29,6 @@ class App extends Component {
   componentDidMount(){
     //adds user to local storage
     const user = JSON.parse(localStorage.getItem("pantryUser"))
-    console.log(user, "user - pantryUser")
     //if the page is refreshed while user is logged in re-save current user to state and then getPantryItems for that user again
     if (user){
       this.setState({
@@ -120,6 +119,7 @@ getPantryItems = async () => {
         activeItem={this.state.activeItem}
         loggedUser={this.state.loggedUser}
         />
+        <img src="/images/pantry_pic.jpg" alt='cartoon pantry'></img>
       <Switch>
         <Route exact path='/' component={Home}/>
         <Route exact path='/pantry' component={() => 

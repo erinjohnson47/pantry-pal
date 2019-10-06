@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Menu, Dropdown } from 'semantic-ui-react'
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import PantryContainer from '../PantryContainer';
 
 
 class NavBar extends Component {
@@ -14,7 +13,6 @@ class NavBar extends Component {
     render() {
         const { activeItem, handleItemClick, handleLogoutClick, loggedUser } = this.props;
         
-        console.log(this.state)
         return (
             <div >
             <Menu tabular attached='top' id='pantryNavbar'>

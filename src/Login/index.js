@@ -43,10 +43,8 @@ class Login extends Component {
         const jsonLogin = await loginUser.json();
         //props from app.js
         const { setUser, getPantryItems } = this.props
-        console.log(loginUser, 'loginUser')
-        console.log(jsonLogin, 'jsonLogin')
         if(jsonLogin.status.message === "User is logged in") {
-            {setUser(jsonLogin.data)}
+            setUser(jsonLogin.data)
             console.log('logged in')
             this.props.history.push('/pantry')
             this.closeModal();

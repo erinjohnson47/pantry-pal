@@ -1,4 +1,4 @@
-![home page](public/images/pantry_pic.JPG)
+![home page](public/images/pantry_pic.jpg)
 # Pantry Pal
 Pantry pal is a webapp that allows users to keep a digital inventory of the food they have in their pantry/refrigerator/freezer, track how much is left of an open item, and add items to their shopping list as they get low/run out/expire so they know exactly what and how much they have/need of all their foods and drinks. 
 ***

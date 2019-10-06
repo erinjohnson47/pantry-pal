@@ -76,11 +76,12 @@ const PantryList = ({ filteredItems, activeItem, handleDeleteClick, allPantryIte
     
     const itemList = filteredItems.sort(alphaSort).map(pantryMap);
     const allItemList = allPantryItems.sort(alphaSort).map(pantryMap);
-    
+    console.log(allItemList, '<-PantryList allItemList', itemList, '<-Pantry List itemList')
     return(
-        
+    
         <div>
         {
+            
             activeItem ?
             <div> 
             <h2>{activeItem}</h2>
