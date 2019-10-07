@@ -12,7 +12,17 @@ class PantryContainer extends Component {
         filteredItems: [],
         activeItem: '',
         loggedUser: '',
-        itemToEdit: ''
+        itemToEdit: '',
+        modalOpen: false
+    }
+    handleOpen = () => {
+        const { loggedUser } = this.props;
+        this.setState({
+            loggedUser: loggedUser,
+            modalOpen: true
+        }, () => {
+            console.log("this modal is open")
+        })
     }
     handleEditClick = async (id) => {
         this.setState({
@@ -47,7 +57,10 @@ class PantryContainer extends Component {
             <div>
                 <CreatePantryItem 
                     getPantryItems={this.props.getPantryItems}
-                    loggedUser={this.state.loggedUser}/>  
+                    // loggedUser={this.state.loggedUser}
+                    handleOpen={this.handleOpen}
+                    modalOpen={this.state.modalOpen}
+                    />  
                 <PantryList 
                     allPantryItems={this.props.allPantryItems}
                     filteredItems={filteredItems}
@@ -55,8 +68,7 @@ class PantryContainer extends Component {
                     handleDeleteClick={this.handleDeleteClick}
                     handleEditClick={this.handleEditClick}
                     />
-                <EditPantryItem 
-                     />
+                <EditPantryItem />
             </div>
         )
     }
