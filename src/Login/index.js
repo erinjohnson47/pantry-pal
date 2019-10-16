@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css'
 import { withRouter } from 'react-router';
-import { Button, Header, Modal, Form } from 'semantic-ui-react'
+import { Button, /*Header, Modal,*/ Form } from 'semantic-ui-react'
 
 const baseUrl = process.env.REACT_APP_BACKEND_URL
 
@@ -9,22 +9,22 @@ class Login extends Component {
     state = {
         username: '',
         password: '',
-        modalOpen: false,
+        // modalOpen: false,
         loggedUser: ''
     }
     
-    handleOpen = () => {
-        this.setState({
-            modalOpen: true
-        })
-    }
-    closeModal = () => {
-        this.setState({
-            modalOpen: false,
-            username: '',
-            password: '',
-        })
-    }
+    // handleOpen = () => {
+    //     this.setState({
+    //         modalOpen: true
+    //     })
+    // }
+    // closeModal = () => {
+    //     this.setState({
+    //         modalOpen: false,
+    //         username: '',
+    //         password: '',
+    //     })
+    // }
     handleChange = (e) => {
         this.setState({
             [e.currentTarget.name]: e.currentTarget.value
@@ -47,19 +47,19 @@ class Login extends Component {
             setUser(jsonLogin.data)
             console.log('logged in')
             this.props.history.push('/pantry')
-            this.closeModal();
+            // this.closeModal();
             getPantryItems();
         }
     }
     loginForm = () => {
     return (
-        <Modal
-            open={this.state.modalOpen}
-            trigger={<Button onClick={this.handleOpen}>Login</Button>} closeIcon>
-            <Header 
-                icon='user' 
-                content='Login' />
-        <Modal.Content>
+        // <Modal
+        //     open={this.state.modalOpen}
+        //     trigger={<Button onClick={this.handleOpen}>Login</Button>} closeIcon>
+        //     <Header 
+        //         icon='user' 
+        //         content='Login' />
+        // <Modal.Content>
             <Form>
                 <Form.Field>
                     <div className="ui form">
@@ -90,9 +90,6 @@ class Login extends Component {
                     </div>
                 </div>
             </Form.Field>
-        </Form>
-        </Modal.Content>
-            <Modal.Actions>
                 <Button 
                     type='Submit'
                     primary
@@ -100,8 +97,11 @@ class Login extends Component {
                     >
                     Login
                 </Button>
-            </Modal.Actions>
-        </Modal>
+        </Form>
+        // </Modal.Content>
+        //     <Modal.Actions>
+        //     </Modal.Actions>
+        // </Modal>
     )
     }  
     render() {

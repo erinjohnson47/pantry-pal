@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css'
 import { withRouter } from 'react-router';
-import { Button, Header, Modal, Form } from 'semantic-ui-react'
+import { Button, /*Header, Modal,*/ Form } from 'semantic-ui-react'
 
 const baseUrl = process.env.REACT_APP_BACKEND_URL
 
@@ -10,22 +10,22 @@ class Register extends Component {
         username: '',
         password: '',
         email: '',
-        modalOpen: false,
+        // modalOpen: false,
         loggedUser: ''
     }
-    handleOpen = () => {
-        this.setState({
-            modalOpen: true
-        })
-    }
-    closeModal = () => {
-        this.setState({
-            modalOpen: false,
-            username: '',
-            password: '',
-            email: ''
-        })
-    }
+    // handleOpen = () => {
+    //     this.setState({
+    //         modalOpen: true
+    //     })
+    // }
+    // closeModal = () => {
+    //     this.setState({
+    //         modalOpen: false,
+    //         username: '',
+    //         password: '',
+    //         email: ''
+    //     })
+    // }
     handleChange = (e) => {
         this.setState({
             [e.currentTarget.name]: e.currentTarget.value
@@ -48,18 +48,18 @@ class Register extends Component {
             setUser(jsonRegister.data)
             console.log('logged in')
             this.props.history.push('/pantry')
-            this.closeModal();
+            // this.closeModal();
         }
     }
     registerForm = () => {
     return (
-        <Modal
-            open={this.state.modalOpen}
-            trigger={<Button onClick={this.handleOpen}>Register</Button>} closeIcon>
-            <Header 
-                icon='user' 
-                content='Register' />
-        <Modal.Content>
+        // <Modal
+        //     open={this.state.modalOpen}
+        //     trigger={<Button onClick={this.handleOpen}>Register</Button>} closeIcon>
+        //     <Header 
+        //         icon='user' 
+        //         content='Register' />
+        // <Modal.Content>
             <Form>
                 <Form.Field>
                     <div className="ui form">
@@ -105,9 +105,6 @@ class Register extends Component {
                 </div>
             </div>
             </Form.Field>
-        </Form>
-        </Modal.Content>
-            <Modal.Actions>
                 <Button 
                     type='Submit'
                     primary
@@ -115,8 +112,11 @@ class Register extends Component {
                     >
                     Register
                 </Button>
-            </Modal.Actions>
-        </Modal>
+        </Form>
+        // </Modal.Content>
+        //     <Modal.Actions>
+        //     </Modal.Actions>
+        // </Modal>
     )
     }  
     render() {

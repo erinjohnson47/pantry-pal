@@ -23,13 +23,6 @@ class CreatePantryItem extends Component {
         modalOpen: false,
         loggedUser: ''
     }
-    // handleOpen = () => {
-    //     const { loggedUser } = this.props;
-    //     this.setState({
-    //         loggedUser: loggedUser,
-    //         modalOpen: true
-    //     })
-    // }
     closeModal = () => {
         this.setState({
             modalOpen: false,
@@ -76,7 +69,6 @@ class CreatePantryItem extends Component {
         }
     }
     addPantryItem = () => {
-        const { modalOpen, handleOpen } = this.props;
     return (
         <Modal
             closeIcon
