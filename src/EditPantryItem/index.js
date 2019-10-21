@@ -15,9 +15,6 @@ class EditPantryItem extends Component {
         editModalOpen: false,
         loggedUser: ''
     }
-    handleEditModalOpen = () => {
-
-    }
     updatePantryItem = () => {
         return (
             <Modal
@@ -26,7 +23,7 @@ class EditPantryItem extends Component {
                 closeOnEscape
                 onClose={this.closeModal}
                 open={this.modalOpen}
-                trigger={<Button onClick={this.handleOpen}>Add an Item to your Inventory</Button>} 
+                trigger={<Button onClick={this.handleOpen}>Edit Item</Button>} 
                 >
                 <Header 
                     icon='food' 
@@ -120,7 +117,7 @@ class EditPantryItem extends Component {
                     type='Submit'
                     primary
                     onClick={this.handleSubmit}>
-                    Add Item
+                    Update Item
                 </Button>
             </Modal.Actions>
             </Modal>

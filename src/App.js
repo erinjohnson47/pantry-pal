@@ -119,7 +119,6 @@ getPantryItems = async () => {
         activeItem={this.state.activeItem}
         loggedUser={this.state.loggedUser}
         />
-        <img src="/images/pantry_pic.jpg" alt='cartoon pantry'></img>
       <Switch>
         <Route exact path='/' component={Home}/>
         <Route exact path='/pantry' component={() => 

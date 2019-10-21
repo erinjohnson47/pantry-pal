@@ -68,10 +68,6 @@ class PantryContainer extends Component {
                     handleDeleteClick={this.handleDeleteClick}
                     handleEditClick={this.handleEditClick}
                     />
-                <EditPantryItem
-                    handleOpen={this.handleOpen}
-                    modalOpen={this.state.modalOpen}
-                    />
             </div>
         )
     }
