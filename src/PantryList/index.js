@@ -1,8 +1,9 @@
 import React from 'react';
 import 'semantic-ui-css/semantic.min.css'
 import { Card, Button } from 'semantic-ui-react'
+import EditPantryItem from '../EditPantryItem'
 
-const PantryList = ({ filteredItems, activeItem, handleDeleteClick, allPantryItems, handleEditClick }) => {
+const PantryList = ({ filteredItems, activeItem, handleDeleteClick, allPantryItems, handleEditClick, itemToEdit, modalOpen, modalClose }) => {
 
     //function to set card color based on location
     const cardColor = {
@@ -44,7 +45,7 @@ const PantryList = ({ filteredItems, activeItem, handleDeleteClick, allPantryIte
                     <Button 
                         basic 
                         color='green'
-                        onClick={handleEditClick.bind(null, element._id)}>
+                        onClick={handleEditClick.bind(null, element)}>
                         Edit
                     </Button>
                     <Button 
@@ -77,12 +78,11 @@ const PantryList = ({ filteredItems, activeItem, handleDeleteClick, allPantryIte
     
     const itemList = filteredItems.sort(alphaSort).map(pantryMap);
     const allItemList = allPantryItems.sort(alphaSort).map(pantryMap);
-    console.log(allItemList, '<-PantryList allItemList', itemList, '<-Pantry List itemList')
+
     return(
     
         <div>
         {
-            
             activeItem ?
             <div> 
             <h2>{activeItem}</h2>
@@ -91,7 +91,16 @@ const PantryList = ({ filteredItems, activeItem, handleDeleteClick, allPantryIte
             <div><h2>All Pantry Items</h2>
             {allItemList}
             </div>
+            
         }
+        {modalOpen ? 
+            <EditPantryItem 
+                modalOpen={modalOpen}
+                handleEditClick={handleEditClick}
+                itemToEdit={itemToEdit}
+                modalClose={modalClose} 
+            /> 
+        : null}
         </div>
         )
 }

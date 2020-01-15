@@ -11,6 +11,8 @@ const locationOptions = [
     { key: 'pantry', text: 'Pantry', value: 'pantry' }
 ]
 
+// const { modalClose, modalOpen, handleOpen, getPantryItems } = this.props;
+
 class CreatePantryItem extends Component {
     state = {
         item: "",
@@ -21,20 +23,47 @@ class CreatePantryItem extends Component {
         isItemOpen: false,
         openedOn: "",
         modalOpen: false,
-        loggedUser: ''
+        loggedUser: '',
+        //added below for API call to food database
+        // searchTerm: '',
+        // foundItems: [],
+        // error: null,
+        // isLoaded: false,
+        // foodId: ''
     }
-    closeModal = () => {
-        this.setState({
-            modalOpen: false,
-            item: "",
-            location: "",
-            expDate: "",
-            itemQuantity: '',
-            servings: '',
-            isItemOpen: false,
-            openedOn: "",
-        })
-    }
+
+    // componentDidMount() {
+    //     if (this.state.searchTerm) {
+    //         fetch(`https://api.nal.usda.gov/fdc/v1/search?`, {
+    //             "api_key": process.env.API_KEY,
+    //             "generalSearchInput": this.state.searchTerm,
+    //             "requireAllWords": true
+    //         })
+    //         .then(res => res.json())
+    //         .then(
+    //             (result) => {
+    //                 this.setState({
+    //                     isLoaded: true,
+    //                     foundItems: result.foods
+    //                 })
+    //             }
+    //         )
+    //     } else {
+    //         fetch(`https://api.nal.usda.gov/fdc/v1/${this.state.foodId}?`, {
+    //             "api_key": process.env.API_KEY,
+    //         })
+    //         .then(res => res.json())
+    //         .then(
+    //             (result) => {
+    //                 this.setState({
+    //                     isLoaded: true,
+    //                     foundItems: result.foods
+    //                 })
+    //             }
+    //         )
+    //     }
+    // }
+
     handleChange = (e) => {
         if (e.currentTarget.children[0] !== undefined && e.currentTarget.children[0].name && !(e.currentTarget.children[0].innerText)) {
             const trueIsFalse = !(e.currentTarget.children[0].checked)
@@ -52,6 +81,7 @@ class CreatePantryItem extends Component {
         }
     }
     handleSubmit = async (e) => {
+        const { getPantryItems, modalClose } = this.props;
         e.preventDefault();
         const addPantryItem = await fetch(`${baseUrl}/pantry/`, {
             method: 'POST',
@@ -63,20 +93,21 @@ class CreatePantryItem extends Component {
         })
         const jsonAddPantry = await addPantryItem.json();
         if(jsonAddPantry.status.message === "Resource successfully created") {
-            this.props.getPantryItems();
+            getPantryItems();
             this.props.history.push('/pantry')
-            this.closeModal();
+            modalClose();
         }
     }
     addPantryItem = () => {
+        const {modalClose, modalOpen, handleOpen} = this.props;
     return (
         <Modal
             closeIcon
             closeOnDimmerClick
             closeOnEscape
-            onClose={this.closeModal}
-            open={this.modalOpen}
-            trigger={<Button onClick={this.handleOpen}>Add an Item to your Inventory</Button>} 
+            onClose={modalClose}
+            open={modalOpen}
+            trigger={<Button onClick={handleOpen}>Add an Item to your Inventory</Button>} 
             >
             <Header 
                 icon='food' 

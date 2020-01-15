@@ -12,22 +12,24 @@ class EditPantryItem extends Component {
         servingsPerItem: '',
         isItemOpen: false,
         openedOn: '',
-        editModalOpen: false,
-        loggedUser: ''
+        modalOpen: false,
+        loggedUser: '',
+        itemToEdit: ''
     }
     updatePantryItem = () => {
+        const {modalOpen, itemToEdit, modalClose } = this.props;
         return (
             <Modal
                 closeIcon
                 closeOnDimmerClick
                 closeOnEscape
-                onClose={this.closeModal}
-                open={this.modalOpen}
+                onClose={modalClose}
+                open={modalOpen}
                 trigger={<Button onClick={this.handleOpen}>Edit Item</Button>} 
                 >
                 <Header 
                     icon='food' 
-                    content='New Food Item' />
+                    content='Edit Food Item' />
                 <Modal.Content>
                 <Form>
                     <Form.Field>
@@ -39,7 +41,7 @@ class EditPantryItem extends Component {
                                 type='text'
                                 name='item'
                                 onChange={this.handleChange}
-                                value={this.state.item}
+                                value={itemToEdit.item}
                                 />
                             </div>
                         </div>
@@ -67,7 +69,7 @@ class EditPantryItem extends Component {
                     type='date'
                     name='expDate'
                     onChange={this.handleChange}
-                    value={this.state.expDate}
+                    value={itemToEdit.expDate}
                     />
                 </Form.Field>
                 <Form.Field>
@@ -78,7 +80,7 @@ class EditPantryItem extends Component {
                     placeholder='Quantity'
                     name='quantity'
                     onChange={this.handleChange}
-                    value={this.state.quantity || ''}
+                    value={itemToEdit.quantity || ''}
                     />
                 </Form.Field>
                 <Form.Field>
@@ -87,7 +89,7 @@ class EditPantryItem extends Component {
                     type='number'
                     name='servings'
                     onChange={this.handleChange}
-                    value={this.state.servings || ''}
+                    value={itemToEdit.servings || ''}
                     min='0'
                     />
                 </Form.Field>
@@ -98,14 +100,14 @@ class EditPantryItem extends Component {
                         onChange={this.handleChange}
                         /> 
                         <label>Is this item open?</label>
-                        {this.state.isItemOpen === true ? 
+                        {itemToEdit.isItemOpen === true ? 
                             <Form.Field>
                             <label>Date Opened</label>
                             <input placeholder='Date Item Was Opened'
                                 type='date'
                                 name='openedOn'
                                 onChange={this.handleChange}
-                                value={this.state.openedOn}
+                                value={itemToEdit.openedOn}
                             />
                             </Form.Field> 
                         : null}  

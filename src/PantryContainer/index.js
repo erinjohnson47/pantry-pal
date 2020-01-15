@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PantryList from '../PantryList'
 import { withRouter } from 'react-router';
-import EditPantryItem from '../EditPantryItem'
+// import EditPantryItem from '../EditPantryItem'
 import CreatePantryItem from '../CreatePantryItem'
 
 const baseUrl = process.env.REACT_APP_BACKEND_URL
@@ -13,7 +13,14 @@ class PantryContainer extends Component {
         activeItem: '',
         loggedUser: '',
         itemToEdit: '',
-        modalOpen: false
+        modalOpen: false,
+        item: "",
+        location: "",
+        expDate: "",
+        itemQuantity: '',
+        servings: '',
+        isItemOpen: false,
+        openedOn: "",
     }
     handleOpen = () => {
         const { loggedUser } = this.props;
@@ -24,11 +31,24 @@ class PantryContainer extends Component {
             console.log("this modal is open")
         })
     }
-    handleEditClick = async (id) => {
+    modalClose = () => {
         this.setState({
-            itemToEdit: id
+            modalOpen: false,
+            item: "",
+            location: "",
+            expDate: "",
+            itemQuantity: '',
+            servings: '',
+            isItemOpen: false,
+            openedOn: "",
+        })
+    }
+    handleEditClick = (id) => {
+        this.setState({
+            itemToEdit: id,
+            modalOpen: true
         },() => {
-            console.log(this.state.itemToEdit, 'itemToEdit in state')
+            console.log(this.state.itemToEdit, 'itemToEdit in state', this.state.modalOpen, "this.state.modalOpen")
         })
     }
     handleDeleteClick = async (id) => {
@@ -60,13 +80,16 @@ class PantryContainer extends Component {
                     // loggedUser={this.state.loggedUser}
                     handleOpen={this.handleOpen}
                     modalOpen={this.state.modalOpen}
-                    />  
+                    modalClose={this.modalClose} />
                 <PantryList 
                     allPantryItems={this.props.allPantryItems}
                     filteredItems={filteredItems}
                     activeItem={activeItem}
                     handleDeleteClick={this.handleDeleteClick}
                     handleEditClick={this.handleEditClick}
+                    modalOpen={this.state.modalOpen}
+                    itemToEdit={this.state.itemToEdit}
+                    modalClose={this.modalClose}
                     />
             </div>
         )
