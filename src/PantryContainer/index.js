@@ -13,7 +13,7 @@ class PantryContainer extends Component {
         activeItem: '',
         loggedUser: '',
         itemToEdit: '',
-        modalOpen: false,
+        modalOpen: '',
         item: "",
         location: "",
         expDate: "",
@@ -22,18 +22,44 @@ class PantryContainer extends Component {
         isItemOpen: false,
         openedOn: "",
     }
-    handleOpen = () => {
+
+    handleChange = (e) => {
+        console.log(e,'this is e in handle change')
+        if (e.currentTarget.children[0] !== undefined && e.currentTarget.children[0].name && !(e.currentTarget.children[0].innerText)) {
+            const trueIsFalse = !(e.currentTarget.children[0].checked)
+            this.setState({
+                isItemOpen: trueIsFalse
+            }, ()=> {
+                console.log(this.state.isItemOpen,'isItemOpen in state from handleChange')
+            })
+        } else if (e.currentTarget.children[0] !== undefined && e.currentTarget.children[0].innerText) {
+            this.setState({
+                location: e.currentTarget.children[0].innerText
+            }, ()=> {
+                console.log(this.state.location,'this is the location in state from handleChange')
+            })
+        } else {
+            this.setState({
+                [e.currentTarget.name]: e.currentTarget.value
+            }, ()=> {
+                console.log(this.state,'this is state in state from handleChange')
+            })
+        }
+    }
+
+    handleOpen = ({itemToEdit, modal}) => {
         const { loggedUser } = this.props;
         this.setState({
             loggedUser: loggedUser,
-            modalOpen: true
+            itemToEdit,
+            modalOpen: modal
         }, () => {
-            console.log("this modal is open")
+            console.log(this.state.itemToEdit,'<-itemToEdit', this.state.modalOpen,'<-modalOpen')
         })
     }
     modalClose = () => {
         this.setState({
-            modalOpen: false,
+            modalOpen: '',
             item: "",
             location: "",
             expDate: "",
@@ -43,14 +69,7 @@ class PantryContainer extends Component {
             openedOn: "",
         })
     }
-    handleEditClick = (id) => {
-        this.setState({
-            itemToEdit: id,
-            modalOpen: true
-        },() => {
-            console.log(this.state.itemToEdit, 'itemToEdit in state', this.state.modalOpen, "this.state.modalOpen")
-        })
-    }
+
     handleDeleteClick = async (id) => {
         try {
         const deletePantryItem = await fetch(`${baseUrl}/pantry/${id}`, {
@@ -80,11 +99,14 @@ class PantryContainer extends Component {
                     // loggedUser={this.state.loggedUser}
                     handleOpen={this.handleOpen}
                     modalOpen={this.state.modalOpen}
-                    modalClose={this.modalClose} />
+                    modalClose={this.modalClose}
+                    handleChange={this.handleChange} />
                 <PantryList 
                     allPantryItems={this.props.allPantryItems}
                     filteredItems={filteredItems}
                     activeItem={activeItem}
+                    handleOpen={this.handleOpen}
+                    handleChange={this.handleChange}
                     handleDeleteClick={this.handleDeleteClick}
                     handleEditClick={this.handleEditClick}
                     modalOpen={this.state.modalOpen}

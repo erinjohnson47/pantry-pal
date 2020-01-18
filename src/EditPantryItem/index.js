@@ -3,6 +3,12 @@ import 'semantic-ui-css/semantic.min.css'
 // import { withRouter } from 'react-router';
 import { Button, Header, Modal, Form, Dropdown } from 'semantic-ui-react'
 
+const locationOptions = [
+    { key: 'refrigerator', text: 'Refrigerator', value: 'refrigerator' },
+    { key: 'freezer', text: 'Freezer', value: 'freezer' },
+    { key: 'pantry', text: 'Pantry', value: 'pantry' }
+]
+
 class EditPantryItem extends Component {
     state = {
         item: '',
@@ -12,20 +18,19 @@ class EditPantryItem extends Component {
         servingsPerItem: '',
         isItemOpen: false,
         openedOn: '',
-        modalOpen: false,
+        modalOpen: '',
         loggedUser: '',
         itemToEdit: ''
     }
     updatePantryItem = () => {
-        const {modalOpen, itemToEdit, modalClose } = this.props;
+        const {modalOpen, itemToEdit, modalClose} = this.props;
         return (
             <Modal
                 closeIcon
                 closeOnDimmerClick
                 closeOnEscape
                 onClose={modalClose}
-                open={modalOpen}
-                trigger={<Button onClick={this.handleOpen}>Edit Item</Button>} 
+                open={modalOpen === "edit"}
                 >
                 <Header 
                     icon='food' 
@@ -41,7 +46,7 @@ class EditPantryItem extends Component {
                                 type='text'
                                 name='item'
                                 onChange={this.handleChange}
-                                value={itemToEdit.item}
+                                defaultValue={itemToEdit.item}
                                 />
                             </div>
                         </div>
@@ -54,8 +59,9 @@ class EditPantryItem extends Component {
                                 required
                                 placeholder='Where Does This Item Belong?'
                                 selection
-                                // options={locationOptions}
+                                options={locationOptions}
                                 name='location'
+                                defaultValue={itemToEdit.location}
                                 onChange={this.handleChange}
                             />
                         </div>
@@ -69,7 +75,7 @@ class EditPantryItem extends Component {
                     type='date'
                     name='expDate'
                     onChange={this.handleChange}
-                    value={itemToEdit.expDate}
+                    defaultValue={itemToEdit.expDate}
                     />
                 </Form.Field>
                 <Form.Field>
@@ -80,7 +86,7 @@ class EditPantryItem extends Component {
                     placeholder='Quantity'
                     name='quantity'
                     onChange={this.handleChange}
-                    value={itemToEdit.quantity || ''}
+                    defaultValue={itemToEdit.quantity}
                     />
                 </Form.Field>
                 <Form.Field>
@@ -89,7 +95,7 @@ class EditPantryItem extends Component {
                     type='number'
                     name='servings'
                     onChange={this.handleChange}
-                    value={itemToEdit.servings || ''}
+                    defaultValue={itemToEdit.servings}
                     min='0'
                     />
                 </Form.Field>
@@ -98,6 +104,7 @@ class EditPantryItem extends Component {
                     <Form.Checkbox
                         name='itemOpen'
                         onChange={this.handleChange}
+                        defaultValue={itemToEdit.isItemOpen === true ? 'checked' : null}
                         /> 
                         <label>Is this item open?</label>
                         {itemToEdit.isItemOpen === true ? 
@@ -107,7 +114,7 @@ class EditPantryItem extends Component {
                                 type='date'
                                 name='openedOn'
                                 onChange={this.handleChange}
-                                value={itemToEdit.openedOn}
+                                defaultValue={itemToEdit.openedOn}
                             />
                             </Form.Field> 
                         : null}  
