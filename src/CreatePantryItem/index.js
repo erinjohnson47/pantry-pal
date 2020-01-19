@@ -64,22 +64,24 @@ class CreatePantryItem extends Component {
     //     }
     // }
 
-    // handleChange = (e) => {
-    //     if (e.currentTarget.children[0] !== undefined && e.currentTarget.children[0].name && !(e.currentTarget.children[0].innerText)) {
-    //         const trueIsFalse = !(e.currentTarget.children[0].checked)
-    //         this.setState({
-    //             isItemOpen: trueIsFalse
-    //         })
-    //     } else if (e.currentTarget.children[0] !== undefined && e.currentTarget.children[0].innerText) {
-    //         this.setState({
-    //             location: e.currentTarget.children[0].innerText
-    //         })
-    //     } else {
-    //         this.setState({
-    //             [e.currentTarget.name]: e.currentTarget.value
-    //         })
-    //     }
-    // }
+    handleChange = (e) => {
+        console.log(e.currentTarget, '<e.target.name')
+        if (e.target.name){
+            this.setState({
+                [e.currentTarget.name]: e.currentTarget.value
+            })
+        } else if (!e.currentTarget.children[0].innerText) {
+            this.setState(prevState => ({
+                isItemOpen: !prevState.isItemOpen
+            }))
+        } else {
+            this.setState({
+                location: e.currentTarget.children[0].innerText
+            }, ()=> {
+                console.log(this.state.location,'this is the location in state from handleChange')}
+            )
+        }
+    }
     handleSubmit = async (e) => {
         const { getPantryItems, modalClose } = this.props;
         e.preventDefault();
@@ -99,7 +101,7 @@ class CreatePantryItem extends Component {
         }
     }
     addPantryItem = () => {
-        const {modalClose, modalOpen, handleOpen, handleChange} = this.props;
+    const {modalClose, modalOpen, handleOpen, /*handleChange*/} = this.props;
     return (
         <Modal
             closeIcon
@@ -124,7 +126,7 @@ class CreatePantryItem extends Component {
                             required
                             type='text'
                             name='item'
-                            onChange={handleChange}
+                            onChange={this.handleChange}
                             value={this.state.item}
                             />
                         </div>
@@ -140,7 +142,7 @@ class CreatePantryItem extends Component {
                             selection
                             options={locationOptions}
                             name='location'
-                            onChange={handleChange}
+                            onChange={this.handleChange}
                         />
                     </div>
                 </div>
@@ -152,7 +154,7 @@ class CreatePantryItem extends Component {
                 required
                 type='date'
                 name='expDate'
-                onChange={handleChange}
+                onChange={this.handleChange}
                 value={this.state.expDate}
                 />
             </Form.Field>
@@ -163,7 +165,7 @@ class CreatePantryItem extends Component {
                 min='0'
                 placeholder='Quantity'
                 name='quantity'
-                onChange={handleChange}
+                onChange={this.handleChange}
                 value={this.state.quantity || ''}
                 />
             </Form.Field>
@@ -172,7 +174,7 @@ class CreatePantryItem extends Component {
                 <input placeholder='Servings per Item'
                 type='number'
                 name='servings'
-                onChange={handleChange}
+                onChange={this.handleChange}
                 value={this.state.servings || ''}
                 min='0'
                 />
@@ -181,7 +183,7 @@ class CreatePantryItem extends Component {
             <Form.Group>
                 <Form.Checkbox
                     name='itemOpen'
-                    onChange={handleChange}
+                    onChange={this.handleChange}
                     /> 
                     <label>Is this item open?</label>
                     {this.state.isItemOpen === true ? 
@@ -190,7 +192,7 @@ class CreatePantryItem extends Component {
                         <input placeholder='Date Item Was Opened'
                             type='date'
                             name='openedOn'
-                            onChange={handleChange}
+                            onChange={this.handleChange}
                             value={this.state.openedOn}
                         />
                         </Form.Field> 
