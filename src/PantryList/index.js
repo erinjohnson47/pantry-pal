@@ -33,7 +33,7 @@ const PantryList = ({ filteredItems, activeItem, handleDeleteClick, allPantryIte
                     <p>Quantity: {element.quantity}</p> }
                     <p>Servings per container: {element.servings}</p>
                 <div>Notes:  
-                { element.itemOpen ? 
+                { element.isItemOpen ? 
                 <p>This item was opened on {new Date(element.openedOn).toLocaleDateString()}</p>: 
                 <p>This item is unopened.</p>
                 }
