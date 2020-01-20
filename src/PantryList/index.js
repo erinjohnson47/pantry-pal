@@ -12,7 +12,14 @@ const PantryList = ({ filteredItems, activeItem, handleDeleteClick, allPantryIte
         Pantry: "yellow"
         }
 
-    // conveope
+    //change date display
+    const changeDateDisplay = (date) => {
+        let thisDate = new Date(date);
+        let day = thisDate.getDate();
+        let month = thisDate.getMonth()+1;
+        let year = thisDate.getFullYear();
+        return `${month}/${day}/${year}` 
+    }
 
     //function to map through each array (fridge, freezer, pantry)
     const pantryMap = element => {
@@ -30,14 +37,14 @@ const PantryList = ({ filteredItems, activeItem, handleDeleteClick, allPantryIte
                         null : 
                         <p>Location: {element.location}</p>
                     }
-                    <p>Expires: {new Date(element.expDate).toLocaleDateString()}</p>
+                    <p>Expires: {changeDateDisplay(element.expDate)}</p>
                     { element.quantity === 0 && !(element.shoppingList) ? 
                     <p>"This element is out of stock, would you like to add it to your Shopping List?"</p>: 
                     <p>Quantity: {element.quantity}</p> }
                     <p>Servings per container: {element.servings}</p>
                 <div>Notes:  
                 { element.isItemOpen ? 
-                <p>This item was opened on {new Date(element.openedOn).toLocaleDateString()}</p>: 
+                <p>This item was opened on {changeDateDisplay(element.openedOn)}</p>: 
                 <p>This item is unopened.</p>
                 }
                 { element.outOfStock ? `You have run out of this item` : null}
@@ -48,7 +55,7 @@ const PantryList = ({ filteredItems, activeItem, handleDeleteClick, allPantryIte
                     <Button 
                         basic 
                         color='green'
-                        onClick={handleOpen.bind(null, { itemToEdit: element, modal: "edit"})}>
+                        onClick={handleOpen.bind(null, {itemToEdit: element, modal: "edit"})}>
                         Edit
                     </Button>
                     <Button 
