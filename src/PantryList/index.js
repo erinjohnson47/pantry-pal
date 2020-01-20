@@ -11,6 +11,9 @@ const PantryList = ({ filteredItems, activeItem, handleDeleteClick, allPantryIte
         Freezer: "purple",
         Pantry: "yellow"
         }
+
+    // conveope
+
     //function to map through each array (fridge, freezer, pantry)
     const pantryMap = element => {
         return (

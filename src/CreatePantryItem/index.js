@@ -18,11 +18,11 @@ class CreatePantryItem extends Component {
         item: "",
         location: "",
         expDate: "",
-        itemQuantity: '',
-        servingsPerItem: '',
+        quantity: '',
+        servings: '',
         isItemOpen: false,
         openedOn: "",
-        modalOpen: false,
+        modalOpen: '',
         loggedUser: '',
         //added below for API call to food database
         // searchTerm: '',
@@ -63,10 +63,40 @@ class CreatePantryItem extends Component {
     //         )
     //     }
     // }
+    
+    //date is going into DB as UTC at 00:00:000UTC, so when it comes out of the db and corrects for local time zone it displays the date as one day earlier - to correct this, the date format yyyy-mm-dd will be changed to yyyy/mm/dd because the db will still accept this as an ISOdate, but the browser will not auto-convert to local timezone, thus correcting the incorrect date display
+    changeDateFormat = (expDate, openedOn) => {
+        if (expDate) {
+            let newExpDate = expDate.replace(/-/g, '/');
+            this.setState(({
+                expDate: newExpDate,
+            }, () => {
+                console.log(this.state, "state after date format updated")
+            }))
+
+        }
+        if (openedOn) {
+            let newOpenedDate = openedOn.replace(/-/g, '/');
+            this.setState(({
+                openedOn: newOpenedDate
+            }, () => {
+                console.log(this.state, "state after date format updated")
+            }))
+        }
+    }
 
     handleChange = (e) => {
-        console.log(e.currentTarget, '<e.target.name')
-        if (e.target.name){
+        if (e.target.name === 'expDate') {
+            let newDate = e.target.value.replace(/-/g, '/')
+            this.setState({
+                [e.target.name]: newDate
+            })
+        } else if (e.target.name === "openedOn") {
+            let newDate = e.target.value.replace(/-/g, '/')
+            this.setState({
+                [e.target.name]: newDate
+            })
+        } else if (e.target.name){
             this.setState({
                 [e.currentTarget.name]: e.currentTarget.value
             })
@@ -77,14 +107,13 @@ class CreatePantryItem extends Component {
         } else {
             this.setState({
                 location: e.currentTarget.children[0].innerText
-            }, ()=> {
-                console.log(this.state.location,'this is the location in state from handleChange')}
-            )
+            })
         }
     }
     handleSubmit = async (e) => {
         const { getPantryItems, modalClose } = this.props;
         e.preventDefault();
+
         const addPantryItem = await fetch(`${baseUrl}/pantry/`, {
             method: 'POST',
             credentials: 'include',
@@ -101,7 +130,7 @@ class CreatePantryItem extends Component {
         }
     }
     addPantryItem = () => {
-    const {modalClose, modalOpen, handleOpen, /*handleChange*/} = this.props;
+    const {modalClose, modalOpen, handleOpen} = this.props;
     return (
         <Modal
             closeIcon
@@ -155,7 +184,6 @@ class CreatePantryItem extends Component {
                 type='date'
                 name='expDate'
                 onChange={this.handleChange}
-                value={this.state.expDate}
                 />
             </Form.Field>
             <Form.Field>
@@ -193,7 +221,6 @@ class CreatePantryItem extends Component {
                             type='date'
                             name='openedOn'
                             onChange={this.handleChange}
-                            value={this.state.openedOn}
                         />
                         </Form.Field> 
                     : null}  

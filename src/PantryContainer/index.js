@@ -23,30 +23,6 @@ class PantryContainer extends Component {
         openedOn: "",
     }
 
-    handleChange = (e) => {
-        console.log(e,'this is e in handle change')
-        // if (e.currentTarget.children[0] !== undefined && e.currentTarget.children[0].name && !(e.currentTarget.children[0].innerText)) {
-        //     const trueIsFalse = !(e.currentTarget.children[0].checked)
-        //     this.setState({
-        //         isItemOpen: trueIsFalse
-        //     }, ()=> {
-        //         console.log(this.state.isItemOpen,'isItemOpen in state from handleChange')
-        //     })
-        // } else if (e.currentTarget.children[0] !== undefined && e.currentTarget.children[0].innerText) {
-        //     this.setState({
-        //         location: e.currentTarget.children[0].innerText
-        //     }, ()=> {
-        //         console.log(this.state.location,'this is the location in state from handleChange')
-        //     })
-        // } else {
-            this.setState({
-                [e.currentTarget.name]: e.currentTarget.value
-            }, ()=> {
-                console.log(this.state,'this is state in state from handleChange')
-            })
-        // }
-    }
-
     handleOpen = ({itemToEdit, modal}) => {
         const { loggedUser } = this.props;
         this.setState({
